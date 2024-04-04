@@ -1,0 +1,1459 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> C
+Rule 1     C -> GV
+Rule 2     C -> GC
+Rule 3     C -> GCF
+Rule 4     C -> GF
+Rule 5     GV -> TD V I VA
+Rule 6     GV -> TD V
+Rule 7     TD -> INTEGER_TYPE
+Rule 8     TD -> BOOLEAN_TYPE
+Rule 9     TD -> DECIMAL_TYPE
+Rule 10    TD -> STRING_TYPE
+Rule 11    V -> VARIABLE
+Rule 12    I -> ASSIGNMENT
+Rule 13    VA -> NUMBER
+Rule 14    VA -> NUMBER DOT NUMBER
+Rule 15    VA -> TRUE_VALUE
+Rule 16    VA -> FALSE_VALUE
+Rule 17    VA -> QUOTATION_MARKS V QUOTATION_MARKS
+Rule 18    GC -> CN PA CD PC MY C MN
+Rule 19    GC -> CN PA CD PC MY MN
+Rule 20    CN -> IF
+Rule 21    CD -> V S V
+Rule 22    CD -> V S VA
+Rule 23    CD -> VA S V
+Rule 24    CD -> VA S VA
+Rule 25    S -> EQUAL
+Rule 26    S -> GREATER_THAN
+Rule 27    S -> LESS_THAN
+Rule 28    S -> GREATER_OR_EQUAL
+Rule 29    S -> LESS_OR_EQUAL
+Rule 30    S -> NOT_EQUAL
+Rule 31    GF -> TD V ME PR MA MY C RT MN
+Rule 32    GF -> V ME PR MA MY C MN
+Rule 33    GF -> TD V ME PR MA MY RT MN
+Rule 34    GF -> V ME PR MA MY MN
+Rule 35    GF -> TD V ME MA MY C RT MN
+Rule 36    GF -> V ME MA MY C MN
+Rule 37    GF -> TD V ME MA MY RT MN
+Rule 38    GF -> V ME MA MY MN
+Rule 39    PR -> V
+Rule 40    ME -> LESS_THAN
+Rule 41    MA -> GREATER_THAN
+Rule 42    RT -> RETURN V
+Rule 43    GCF -> F PA CDF PC MY C MN
+Rule 44    GCF -> F PA CDF PC MY MN
+Rule 45    F -> FOR
+Rule 46    CDF -> NUMBER SE NUMBER SE O
+Rule 47    SE -> PIPE
+Rule 48    O -> SUBTRACTION
+Rule 49    O -> ADDITION
+Rule 50    PA -> PARENTHESIS_OPEN
+Rule 51    PC -> PARENTHESIS_CLOSE
+Rule 52    MY -> OPEN_BODY
+Rule 53    MN -> LESS_OR_EQUAL
+
+Terminals, with rules where they appear
+
+ADDITION             : 49
+ASSIGNMENT           : 12
+BOOLEAN_TYPE         : 8
+DECIMAL_TYPE         : 9
+DOT                  : 14
+EQUAL                : 25
+FALSE_VALUE          : 16
+FOR                  : 45
+GREATER_OR_EQUAL     : 28
+GREATER_THAN         : 26 41
+IF                   : 20
+INTEGER_TYPE         : 7
+LESS_OR_EQUAL        : 29 53
+LESS_THAN            : 27 40
+NOT_EQUAL            : 30
+NUMBER               : 13 14 14 46 46
+OPEN_BODY            : 52
+PARENTHESIS_CLOSE    : 51
+PARENTHESIS_OPEN     : 50
+PIPE                 : 47
+QUOTATION_MARKS      : 17 17
+RETURN               : 42
+STRING_TYPE          : 10
+SUBTRACTION          : 48
+TRUE_VALUE           : 15
+VARIABLE             : 11
+error                : 
+
+Nonterminals, with rules where they appear
+
+C                    : 18 31 32 35 36 43 0
+CD                   : 18 19
+CDF                  : 43 44
+CN                   : 18 19
+F                    : 43 44
+GC                   : 2
+GCF                  : 3
+GF                   : 4
+GV                   : 1
+I                    : 5
+MA                   : 31 32 33 34 35 36 37 38
+ME                   : 31 32 33 34 35 36 37 38
+MN                   : 18 19 31 32 33 34 35 36 37 38 43 44
+MY                   : 18 19 31 32 33 34 35 36 37 38 43 44
+O                    : 46
+PA                   : 18 19 43 44
+PC                   : 18 19 43 44
+PR                   : 31 32 33 34
+RT                   : 31 33 35 37
+S                    : 21 22 23 24
+SE                   : 46 46
+TD                   : 5 6 31 33 35 37
+V                    : 5 6 17 21 21 22 23 31 32 33 34 35 36 37 38 39 42
+VA                   : 5 22 23 24 24
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . C
+    (1) C -> . GV
+    (2) C -> . GC
+    (3) C -> . GCF
+    (4) C -> . GF
+    (5) GV -> . TD V I VA
+    (6) GV -> . TD V
+    (18) GC -> . CN PA CD PC MY C MN
+    (19) GC -> . CN PA CD PC MY MN
+    (43) GCF -> . F PA CDF PC MY C MN
+    (44) GCF -> . F PA CDF PC MY MN
+    (31) GF -> . TD V ME PR MA MY C RT MN
+    (32) GF -> . V ME PR MA MY C MN
+    (33) GF -> . TD V ME PR MA MY RT MN
+    (34) GF -> . V ME PR MA MY MN
+    (35) GF -> . TD V ME MA MY C RT MN
+    (36) GF -> . V ME MA MY C MN
+    (37) GF -> . TD V ME MA MY RT MN
+    (38) GF -> . V ME MA MY MN
+    (7) TD -> . INTEGER_TYPE
+    (8) TD -> . BOOLEAN_TYPE
+    (9) TD -> . DECIMAL_TYPE
+    (10) TD -> . STRING_TYPE
+    (20) CN -> . IF
+    (45) F -> . FOR
+    (11) V -> . VARIABLE
+
+    INTEGER_TYPE    shift and go to state 10
+    BOOLEAN_TYPE    shift and go to state 11
+    DECIMAL_TYPE    shift and go to state 12
+    STRING_TYPE     shift and go to state 13
+    IF              shift and go to state 14
+    FOR             shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    C                              shift and go to state 1
+    GV                             shift and go to state 2
+    GC                             shift and go to state 3
+    GCF                            shift and go to state 4
+    GF                             shift and go to state 5
+    TD                             shift and go to state 6
+    V                              shift and go to state 7
+    CN                             shift and go to state 8
+    F                              shift and go to state 9
+
+state 1
+
+    (0) S' -> C .
+
+
+
+state 2
+
+    (1) C -> GV .
+
+    $end            reduce using rule 1 (C -> GV .)
+    LESS_OR_EQUAL   reduce using rule 1 (C -> GV .)
+    RETURN          reduce using rule 1 (C -> GV .)
+
+
+state 3
+
+    (2) C -> GC .
+
+    $end            reduce using rule 2 (C -> GC .)
+    LESS_OR_EQUAL   reduce using rule 2 (C -> GC .)
+    RETURN          reduce using rule 2 (C -> GC .)
+
+
+state 4
+
+    (3) C -> GCF .
+
+    $end            reduce using rule 3 (C -> GCF .)
+    LESS_OR_EQUAL   reduce using rule 3 (C -> GCF .)
+    RETURN          reduce using rule 3 (C -> GCF .)
+
+
+state 5
+
+    (4) C -> GF .
+
+    $end            reduce using rule 4 (C -> GF .)
+    LESS_OR_EQUAL   reduce using rule 4 (C -> GF .)
+    RETURN          reduce using rule 4 (C -> GF .)
+
+
+state 6
+
+    (5) GV -> TD . V I VA
+    (6) GV -> TD . V
+    (31) GF -> TD . V ME PR MA MY C RT MN
+    (33) GF -> TD . V ME PR MA MY RT MN
+    (35) GF -> TD . V ME MA MY C RT MN
+    (37) GF -> TD . V ME MA MY RT MN
+    (11) V -> . VARIABLE
+
+    VARIABLE        shift and go to state 16
+
+    V                              shift and go to state 17
+
+state 7
+
+    (32) GF -> V . ME PR MA MY C MN
+    (34) GF -> V . ME PR MA MY MN
+    (36) GF -> V . ME MA MY C MN
+    (38) GF -> V . ME MA MY MN
+    (40) ME -> . LESS_THAN
+
+    LESS_THAN       shift and go to state 19
+
+    ME                             shift and go to state 18
+
+state 8
+
+    (18) GC -> CN . PA CD PC MY C MN
+    (19) GC -> CN . PA CD PC MY MN
+    (50) PA -> . PARENTHESIS_OPEN
+
+    PARENTHESIS_OPEN shift and go to state 21
+
+    PA                             shift and go to state 20
+
+state 9
+
+    (43) GCF -> F . PA CDF PC MY C MN
+    (44) GCF -> F . PA CDF PC MY MN
+    (50) PA -> . PARENTHESIS_OPEN
+
+    PARENTHESIS_OPEN shift and go to state 21
+
+    PA                             shift and go to state 22
+
+state 10
+
+    (7) TD -> INTEGER_TYPE .
+
+    VARIABLE        reduce using rule 7 (TD -> INTEGER_TYPE .)
+
+
+state 11
+
+    (8) TD -> BOOLEAN_TYPE .
+
+    VARIABLE        reduce using rule 8 (TD -> BOOLEAN_TYPE .)
+
+
+state 12
+
+    (9) TD -> DECIMAL_TYPE .
+
+    VARIABLE        reduce using rule 9 (TD -> DECIMAL_TYPE .)
+
+
+state 13
+
+    (10) TD -> STRING_TYPE .
+
+    VARIABLE        reduce using rule 10 (TD -> STRING_TYPE .)
+
+
+state 14
+
+    (20) CN -> IF .
+
+    PARENTHESIS_OPEN reduce using rule 20 (CN -> IF .)
+
+
+state 15
+
+    (45) F -> FOR .
+
+    PARENTHESIS_OPEN reduce using rule 45 (F -> FOR .)
+
+
+state 16
+
+    (11) V -> VARIABLE .
+
+    LESS_THAN       reduce using rule 11 (V -> VARIABLE .)
+    ASSIGNMENT      reduce using rule 11 (V -> VARIABLE .)
+    $end            reduce using rule 11 (V -> VARIABLE .)
+    LESS_OR_EQUAL   reduce using rule 11 (V -> VARIABLE .)
+    RETURN          reduce using rule 11 (V -> VARIABLE .)
+    GREATER_THAN    reduce using rule 11 (V -> VARIABLE .)
+    EQUAL           reduce using rule 11 (V -> VARIABLE .)
+    GREATER_OR_EQUAL reduce using rule 11 (V -> VARIABLE .)
+    NOT_EQUAL       reduce using rule 11 (V -> VARIABLE .)
+    QUOTATION_MARKS reduce using rule 11 (V -> VARIABLE .)
+    PARENTHESIS_CLOSE reduce using rule 11 (V -> VARIABLE .)
+
+
+state 17
+
+    (5) GV -> TD V . I VA
+    (6) GV -> TD V .
+    (31) GF -> TD V . ME PR MA MY C RT MN
+    (33) GF -> TD V . ME PR MA MY RT MN
+    (35) GF -> TD V . ME MA MY C RT MN
+    (37) GF -> TD V . ME MA MY RT MN
+    (12) I -> . ASSIGNMENT
+    (40) ME -> . LESS_THAN
+
+    $end            reduce using rule 6 (GV -> TD V .)
+    LESS_OR_EQUAL   reduce using rule 6 (GV -> TD V .)
+    RETURN          reduce using rule 6 (GV -> TD V .)
+    ASSIGNMENT      shift and go to state 25
+    LESS_THAN       shift and go to state 19
+
+    I                              shift and go to state 23
+    ME                             shift and go to state 24
+
+state 18
+
+    (32) GF -> V ME . PR MA MY C MN
+    (34) GF -> V ME . PR MA MY MN
+    (36) GF -> V ME . MA MY C MN
+    (38) GF -> V ME . MA MY MN
+    (39) PR -> . V
+    (41) MA -> . GREATER_THAN
+    (11) V -> . VARIABLE
+
+    GREATER_THAN    shift and go to state 29
+    VARIABLE        shift and go to state 16
+
+    V                              shift and go to state 26
+    PR                             shift and go to state 27
+    MA                             shift and go to state 28
+
+state 19
+
+    (40) ME -> LESS_THAN .
+
+    GREATER_THAN    reduce using rule 40 (ME -> LESS_THAN .)
+    VARIABLE        reduce using rule 40 (ME -> LESS_THAN .)
+
+
+state 20
+
+    (18) GC -> CN PA . CD PC MY C MN
+    (19) GC -> CN PA . CD PC MY MN
+    (21) CD -> . V S V
+    (22) CD -> . V S VA
+    (23) CD -> . VA S V
+    (24) CD -> . VA S VA
+    (11) V -> . VARIABLE
+    (13) VA -> . NUMBER
+    (14) VA -> . NUMBER DOT NUMBER
+    (15) VA -> . TRUE_VALUE
+    (16) VA -> . FALSE_VALUE
+    (17) VA -> . QUOTATION_MARKS V QUOTATION_MARKS
+
+    VARIABLE        shift and go to state 16
+    NUMBER          shift and go to state 33
+    TRUE_VALUE      shift and go to state 34
+    FALSE_VALUE     shift and go to state 35
+    QUOTATION_MARKS shift and go to state 36
+
+    CD                             shift and go to state 30
+    V                              shift and go to state 31
+    VA                             shift and go to state 32
+
+state 21
+
+    (50) PA -> PARENTHESIS_OPEN .
+
+    VARIABLE        reduce using rule 50 (PA -> PARENTHESIS_OPEN .)
+    NUMBER          reduce using rule 50 (PA -> PARENTHESIS_OPEN .)
+    TRUE_VALUE      reduce using rule 50 (PA -> PARENTHESIS_OPEN .)
+    FALSE_VALUE     reduce using rule 50 (PA -> PARENTHESIS_OPEN .)
+    QUOTATION_MARKS reduce using rule 50 (PA -> PARENTHESIS_OPEN .)
+
+
+state 22
+
+    (43) GCF -> F PA . CDF PC MY C MN
+    (44) GCF -> F PA . CDF PC MY MN
+    (46) CDF -> . NUMBER SE NUMBER SE O
+
+    NUMBER          shift and go to state 38
+
+    CDF                            shift and go to state 37
+
+state 23
+
+    (5) GV -> TD V I . VA
+    (13) VA -> . NUMBER
+    (14) VA -> . NUMBER DOT NUMBER
+    (15) VA -> . TRUE_VALUE
+    (16) VA -> . FALSE_VALUE
+    (17) VA -> . QUOTATION_MARKS V QUOTATION_MARKS
+
+    NUMBER          shift and go to state 33
+    TRUE_VALUE      shift and go to state 34
+    FALSE_VALUE     shift and go to state 35
+    QUOTATION_MARKS shift and go to state 36
+
+    VA                             shift and go to state 39
+
+state 24
+
+    (31) GF -> TD V ME . PR MA MY C RT MN
+    (33) GF -> TD V ME . PR MA MY RT MN
+    (35) GF -> TD V ME . MA MY C RT MN
+    (37) GF -> TD V ME . MA MY RT MN
+    (39) PR -> . V
+    (41) MA -> . GREATER_THAN
+    (11) V -> . VARIABLE
+
+    GREATER_THAN    shift and go to state 29
+    VARIABLE        shift and go to state 16
+
+    V                              shift and go to state 26
+    PR                             shift and go to state 40
+    MA                             shift and go to state 41
+
+state 25
+
+    (12) I -> ASSIGNMENT .
+
+    NUMBER          reduce using rule 12 (I -> ASSIGNMENT .)
+    TRUE_VALUE      reduce using rule 12 (I -> ASSIGNMENT .)
+    FALSE_VALUE     reduce using rule 12 (I -> ASSIGNMENT .)
+    QUOTATION_MARKS reduce using rule 12 (I -> ASSIGNMENT .)
+
+
+state 26
+
+    (39) PR -> V .
+
+    GREATER_THAN    reduce using rule 39 (PR -> V .)
+
+
+state 27
+
+    (32) GF -> V ME PR . MA MY C MN
+    (34) GF -> V ME PR . MA MY MN
+    (41) MA -> . GREATER_THAN
+
+    GREATER_THAN    shift and go to state 29
+
+    MA                             shift and go to state 42
+
+state 28
+
+    (36) GF -> V ME MA . MY C MN
+    (38) GF -> V ME MA . MY MN
+    (52) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 44
+
+    MY                             shift and go to state 43
+
+state 29
+
+    (41) MA -> GREATER_THAN .
+
+    OPEN_BODY       reduce using rule 41 (MA -> GREATER_THAN .)
+
+
+state 30
+
+    (18) GC -> CN PA CD . PC MY C MN
+    (19) GC -> CN PA CD . PC MY MN
+    (51) PC -> . PARENTHESIS_CLOSE
+
+    PARENTHESIS_CLOSE shift and go to state 46
+
+    PC                             shift and go to state 45
+
+state 31
+
+    (21) CD -> V . S V
+    (22) CD -> V . S VA
+    (25) S -> . EQUAL
+    (26) S -> . GREATER_THAN
+    (27) S -> . LESS_THAN
+    (28) S -> . GREATER_OR_EQUAL
+    (29) S -> . LESS_OR_EQUAL
+    (30) S -> . NOT_EQUAL
+
+    EQUAL           shift and go to state 48
+    GREATER_THAN    shift and go to state 49
+    LESS_THAN       shift and go to state 50
+    GREATER_OR_EQUAL shift and go to state 51
+    LESS_OR_EQUAL   shift and go to state 52
+    NOT_EQUAL       shift and go to state 53
+
+    S                              shift and go to state 47
+
+state 32
+
+    (23) CD -> VA . S V
+    (24) CD -> VA . S VA
+    (25) S -> . EQUAL
+    (26) S -> . GREATER_THAN
+    (27) S -> . LESS_THAN
+    (28) S -> . GREATER_OR_EQUAL
+    (29) S -> . LESS_OR_EQUAL
+    (30) S -> . NOT_EQUAL
+
+    EQUAL           shift and go to state 48
+    GREATER_THAN    shift and go to state 49
+    LESS_THAN       shift and go to state 50
+    GREATER_OR_EQUAL shift and go to state 51
+    LESS_OR_EQUAL   shift and go to state 52
+    NOT_EQUAL       shift and go to state 53
+
+    S                              shift and go to state 54
+
+state 33
+
+    (13) VA -> NUMBER .
+    (14) VA -> NUMBER . DOT NUMBER
+
+    EQUAL           reduce using rule 13 (VA -> NUMBER .)
+    GREATER_THAN    reduce using rule 13 (VA -> NUMBER .)
+    LESS_THAN       reduce using rule 13 (VA -> NUMBER .)
+    GREATER_OR_EQUAL reduce using rule 13 (VA -> NUMBER .)
+    LESS_OR_EQUAL   reduce using rule 13 (VA -> NUMBER .)
+    NOT_EQUAL       reduce using rule 13 (VA -> NUMBER .)
+    $end            reduce using rule 13 (VA -> NUMBER .)
+    RETURN          reduce using rule 13 (VA -> NUMBER .)
+    PARENTHESIS_CLOSE reduce using rule 13 (VA -> NUMBER .)
+    DOT             shift and go to state 55
+
+
+state 34
+
+    (15) VA -> TRUE_VALUE .
+
+    EQUAL           reduce using rule 15 (VA -> TRUE_VALUE .)
+    GREATER_THAN    reduce using rule 15 (VA -> TRUE_VALUE .)
+    LESS_THAN       reduce using rule 15 (VA -> TRUE_VALUE .)
+    GREATER_OR_EQUAL reduce using rule 15 (VA -> TRUE_VALUE .)
+    LESS_OR_EQUAL   reduce using rule 15 (VA -> TRUE_VALUE .)
+    NOT_EQUAL       reduce using rule 15 (VA -> TRUE_VALUE .)
+    $end            reduce using rule 15 (VA -> TRUE_VALUE .)
+    RETURN          reduce using rule 15 (VA -> TRUE_VALUE .)
+    PARENTHESIS_CLOSE reduce using rule 15 (VA -> TRUE_VALUE .)
+
+
+state 35
+
+    (16) VA -> FALSE_VALUE .
+
+    EQUAL           reduce using rule 16 (VA -> FALSE_VALUE .)
+    GREATER_THAN    reduce using rule 16 (VA -> FALSE_VALUE .)
+    LESS_THAN       reduce using rule 16 (VA -> FALSE_VALUE .)
+    GREATER_OR_EQUAL reduce using rule 16 (VA -> FALSE_VALUE .)
+    LESS_OR_EQUAL   reduce using rule 16 (VA -> FALSE_VALUE .)
+    NOT_EQUAL       reduce using rule 16 (VA -> FALSE_VALUE .)
+    $end            reduce using rule 16 (VA -> FALSE_VALUE .)
+    RETURN          reduce using rule 16 (VA -> FALSE_VALUE .)
+    PARENTHESIS_CLOSE reduce using rule 16 (VA -> FALSE_VALUE .)
+
+
+state 36
+
+    (17) VA -> QUOTATION_MARKS . V QUOTATION_MARKS
+    (11) V -> . VARIABLE
+
+    VARIABLE        shift and go to state 16
+
+    V                              shift and go to state 56
+
+state 37
+
+    (43) GCF -> F PA CDF . PC MY C MN
+    (44) GCF -> F PA CDF . PC MY MN
+    (51) PC -> . PARENTHESIS_CLOSE
+
+    PARENTHESIS_CLOSE shift and go to state 46
+
+    PC                             shift and go to state 57
+
+state 38
+
+    (46) CDF -> NUMBER . SE NUMBER SE O
+    (47) SE -> . PIPE
+
+    PIPE            shift and go to state 59
+
+    SE                             shift and go to state 58
+
+state 39
+
+    (5) GV -> TD V I VA .
+
+    $end            reduce using rule 5 (GV -> TD V I VA .)
+    LESS_OR_EQUAL   reduce using rule 5 (GV -> TD V I VA .)
+    RETURN          reduce using rule 5 (GV -> TD V I VA .)
+
+
+state 40
+
+    (31) GF -> TD V ME PR . MA MY C RT MN
+    (33) GF -> TD V ME PR . MA MY RT MN
+    (41) MA -> . GREATER_THAN
+
+    GREATER_THAN    shift and go to state 29
+
+    MA                             shift and go to state 60
+
+state 41
+
+    (35) GF -> TD V ME MA . MY C RT MN
+    (37) GF -> TD V ME MA . MY RT MN
+    (52) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 44
+
+    MY                             shift and go to state 61
+
+state 42
+
+    (32) GF -> V ME PR MA . MY C MN
+    (34) GF -> V ME PR MA . MY MN
+    (52) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 44
+
+    MY                             shift and go to state 62
+
+state 43
+
+    (36) GF -> V ME MA MY . C MN
+    (38) GF -> V ME MA MY . MN
+    (1) C -> . GV
+    (2) C -> . GC
+    (3) C -> . GCF
+    (4) C -> . GF
+    (53) MN -> . LESS_OR_EQUAL
+    (5) GV -> . TD V I VA
+    (6) GV -> . TD V
+    (18) GC -> . CN PA CD PC MY C MN
+    (19) GC -> . CN PA CD PC MY MN
+    (43) GCF -> . F PA CDF PC MY C MN
+    (44) GCF -> . F PA CDF PC MY MN
+    (31) GF -> . TD V ME PR MA MY C RT MN
+    (32) GF -> . V ME PR MA MY C MN
+    (33) GF -> . TD V ME PR MA MY RT MN
+    (34) GF -> . V ME PR MA MY MN
+    (35) GF -> . TD V ME MA MY C RT MN
+    (36) GF -> . V ME MA MY C MN
+    (37) GF -> . TD V ME MA MY RT MN
+    (38) GF -> . V ME MA MY MN
+    (7) TD -> . INTEGER_TYPE
+    (8) TD -> . BOOLEAN_TYPE
+    (9) TD -> . DECIMAL_TYPE
+    (10) TD -> . STRING_TYPE
+    (20) CN -> . IF
+    (45) F -> . FOR
+    (11) V -> . VARIABLE
+
+    LESS_OR_EQUAL   shift and go to state 65
+    INTEGER_TYPE    shift and go to state 10
+    BOOLEAN_TYPE    shift and go to state 11
+    DECIMAL_TYPE    shift and go to state 12
+    STRING_TYPE     shift and go to state 13
+    IF              shift and go to state 14
+    FOR             shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    V                              shift and go to state 7
+    C                              shift and go to state 63
+    MN                             shift and go to state 64
+    GV                             shift and go to state 2
+    GC                             shift and go to state 3
+    GCF                            shift and go to state 4
+    GF                             shift and go to state 5
+    TD                             shift and go to state 6
+    CN                             shift and go to state 8
+    F                              shift and go to state 9
+
+state 44
+
+    (52) MY -> OPEN_BODY .
+
+    LESS_OR_EQUAL   reduce using rule 52 (MY -> OPEN_BODY .)
+    INTEGER_TYPE    reduce using rule 52 (MY -> OPEN_BODY .)
+    BOOLEAN_TYPE    reduce using rule 52 (MY -> OPEN_BODY .)
+    DECIMAL_TYPE    reduce using rule 52 (MY -> OPEN_BODY .)
+    STRING_TYPE     reduce using rule 52 (MY -> OPEN_BODY .)
+    IF              reduce using rule 52 (MY -> OPEN_BODY .)
+    FOR             reduce using rule 52 (MY -> OPEN_BODY .)
+    VARIABLE        reduce using rule 52 (MY -> OPEN_BODY .)
+    RETURN          reduce using rule 52 (MY -> OPEN_BODY .)
+
+
+state 45
+
+    (18) GC -> CN PA CD PC . MY C MN
+    (19) GC -> CN PA CD PC . MY MN
+    (52) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 44
+
+    MY                             shift and go to state 66
+
+state 46
+
+    (51) PC -> PARENTHESIS_CLOSE .
+
+    OPEN_BODY       reduce using rule 51 (PC -> PARENTHESIS_CLOSE .)
+
+
+state 47
+
+    (21) CD -> V S . V
+    (22) CD -> V S . VA
+    (11) V -> . VARIABLE
+    (13) VA -> . NUMBER
+    (14) VA -> . NUMBER DOT NUMBER
+    (15) VA -> . TRUE_VALUE
+    (16) VA -> . FALSE_VALUE
+    (17) VA -> . QUOTATION_MARKS V QUOTATION_MARKS
+
+    VARIABLE        shift and go to state 16
+    NUMBER          shift and go to state 33
+    TRUE_VALUE      shift and go to state 34
+    FALSE_VALUE     shift and go to state 35
+    QUOTATION_MARKS shift and go to state 36
+
+    V                              shift and go to state 67
+    VA                             shift and go to state 68
+
+state 48
+
+    (25) S -> EQUAL .
+
+    VARIABLE        reduce using rule 25 (S -> EQUAL .)
+    NUMBER          reduce using rule 25 (S -> EQUAL .)
+    TRUE_VALUE      reduce using rule 25 (S -> EQUAL .)
+    FALSE_VALUE     reduce using rule 25 (S -> EQUAL .)
+    QUOTATION_MARKS reduce using rule 25 (S -> EQUAL .)
+
+
+state 49
+
+    (26) S -> GREATER_THAN .
+
+    VARIABLE        reduce using rule 26 (S -> GREATER_THAN .)
+    NUMBER          reduce using rule 26 (S -> GREATER_THAN .)
+    TRUE_VALUE      reduce using rule 26 (S -> GREATER_THAN .)
+    FALSE_VALUE     reduce using rule 26 (S -> GREATER_THAN .)
+    QUOTATION_MARKS reduce using rule 26 (S -> GREATER_THAN .)
+
+
+state 50
+
+    (27) S -> LESS_THAN .
+
+    VARIABLE        reduce using rule 27 (S -> LESS_THAN .)
+    NUMBER          reduce using rule 27 (S -> LESS_THAN .)
+    TRUE_VALUE      reduce using rule 27 (S -> LESS_THAN .)
+    FALSE_VALUE     reduce using rule 27 (S -> LESS_THAN .)
+    QUOTATION_MARKS reduce using rule 27 (S -> LESS_THAN .)
+
+
+state 51
+
+    (28) S -> GREATER_OR_EQUAL .
+
+    VARIABLE        reduce using rule 28 (S -> GREATER_OR_EQUAL .)
+    NUMBER          reduce using rule 28 (S -> GREATER_OR_EQUAL .)
+    TRUE_VALUE      reduce using rule 28 (S -> GREATER_OR_EQUAL .)
+    FALSE_VALUE     reduce using rule 28 (S -> GREATER_OR_EQUAL .)
+    QUOTATION_MARKS reduce using rule 28 (S -> GREATER_OR_EQUAL .)
+
+
+state 52
+
+    (29) S -> LESS_OR_EQUAL .
+
+    VARIABLE        reduce using rule 29 (S -> LESS_OR_EQUAL .)
+    NUMBER          reduce using rule 29 (S -> LESS_OR_EQUAL .)
+    TRUE_VALUE      reduce using rule 29 (S -> LESS_OR_EQUAL .)
+    FALSE_VALUE     reduce using rule 29 (S -> LESS_OR_EQUAL .)
+    QUOTATION_MARKS reduce using rule 29 (S -> LESS_OR_EQUAL .)
+
+
+state 53
+
+    (30) S -> NOT_EQUAL .
+
+    VARIABLE        reduce using rule 30 (S -> NOT_EQUAL .)
+    NUMBER          reduce using rule 30 (S -> NOT_EQUAL .)
+    TRUE_VALUE      reduce using rule 30 (S -> NOT_EQUAL .)
+    FALSE_VALUE     reduce using rule 30 (S -> NOT_EQUAL .)
+    QUOTATION_MARKS reduce using rule 30 (S -> NOT_EQUAL .)
+
+
+state 54
+
+    (23) CD -> VA S . V
+    (24) CD -> VA S . VA
+    (11) V -> . VARIABLE
+    (13) VA -> . NUMBER
+    (14) VA -> . NUMBER DOT NUMBER
+    (15) VA -> . TRUE_VALUE
+    (16) VA -> . FALSE_VALUE
+    (17) VA -> . QUOTATION_MARKS V QUOTATION_MARKS
+
+    VARIABLE        shift and go to state 16
+    NUMBER          shift and go to state 33
+    TRUE_VALUE      shift and go to state 34
+    FALSE_VALUE     shift and go to state 35
+    QUOTATION_MARKS shift and go to state 36
+
+    VA                             shift and go to state 69
+    V                              shift and go to state 70
+
+state 55
+
+    (14) VA -> NUMBER DOT . NUMBER
+
+    NUMBER          shift and go to state 71
+
+
+state 56
+
+    (17) VA -> QUOTATION_MARKS V . QUOTATION_MARKS
+
+    QUOTATION_MARKS shift and go to state 72
+
+
+state 57
+
+    (43) GCF -> F PA CDF PC . MY C MN
+    (44) GCF -> F PA CDF PC . MY MN
+    (52) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 44
+
+    MY                             shift and go to state 73
+
+state 58
+
+    (46) CDF -> NUMBER SE . NUMBER SE O
+
+    NUMBER          shift and go to state 74
+
+
+state 59
+
+    (47) SE -> PIPE .
+
+    NUMBER          reduce using rule 47 (SE -> PIPE .)
+    SUBTRACTION     reduce using rule 47 (SE -> PIPE .)
+    ADDITION        reduce using rule 47 (SE -> PIPE .)
+
+
+state 60
+
+    (31) GF -> TD V ME PR MA . MY C RT MN
+    (33) GF -> TD V ME PR MA . MY RT MN
+    (52) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 44
+
+    MY                             shift and go to state 75
+
+state 61
+
+    (35) GF -> TD V ME MA MY . C RT MN
+    (37) GF -> TD V ME MA MY . RT MN
+    (1) C -> . GV
+    (2) C -> . GC
+    (3) C -> . GCF
+    (4) C -> . GF
+    (42) RT -> . RETURN V
+    (5) GV -> . TD V I VA
+    (6) GV -> . TD V
+    (18) GC -> . CN PA CD PC MY C MN
+    (19) GC -> . CN PA CD PC MY MN
+    (43) GCF -> . F PA CDF PC MY C MN
+    (44) GCF -> . F PA CDF PC MY MN
+    (31) GF -> . TD V ME PR MA MY C RT MN
+    (32) GF -> . V ME PR MA MY C MN
+    (33) GF -> . TD V ME PR MA MY RT MN
+    (34) GF -> . V ME PR MA MY MN
+    (35) GF -> . TD V ME MA MY C RT MN
+    (36) GF -> . V ME MA MY C MN
+    (37) GF -> . TD V ME MA MY RT MN
+    (38) GF -> . V ME MA MY MN
+    (7) TD -> . INTEGER_TYPE
+    (8) TD -> . BOOLEAN_TYPE
+    (9) TD -> . DECIMAL_TYPE
+    (10) TD -> . STRING_TYPE
+    (20) CN -> . IF
+    (45) F -> . FOR
+    (11) V -> . VARIABLE
+
+    RETURN          shift and go to state 78
+    INTEGER_TYPE    shift and go to state 10
+    BOOLEAN_TYPE    shift and go to state 11
+    DECIMAL_TYPE    shift and go to state 12
+    STRING_TYPE     shift and go to state 13
+    IF              shift and go to state 14
+    FOR             shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    TD                             shift and go to state 6
+    V                              shift and go to state 7
+    C                              shift and go to state 76
+    RT                             shift and go to state 77
+    GV                             shift and go to state 2
+    GC                             shift and go to state 3
+    GCF                            shift and go to state 4
+    GF                             shift and go to state 5
+    CN                             shift and go to state 8
+    F                              shift and go to state 9
+
+state 62
+
+    (32) GF -> V ME PR MA MY . C MN
+    (34) GF -> V ME PR MA MY . MN
+    (1) C -> . GV
+    (2) C -> . GC
+    (3) C -> . GCF
+    (4) C -> . GF
+    (53) MN -> . LESS_OR_EQUAL
+    (5) GV -> . TD V I VA
+    (6) GV -> . TD V
+    (18) GC -> . CN PA CD PC MY C MN
+    (19) GC -> . CN PA CD PC MY MN
+    (43) GCF -> . F PA CDF PC MY C MN
+    (44) GCF -> . F PA CDF PC MY MN
+    (31) GF -> . TD V ME PR MA MY C RT MN
+    (32) GF -> . V ME PR MA MY C MN
+    (33) GF -> . TD V ME PR MA MY RT MN
+    (34) GF -> . V ME PR MA MY MN
+    (35) GF -> . TD V ME MA MY C RT MN
+    (36) GF -> . V ME MA MY C MN
+    (37) GF -> . TD V ME MA MY RT MN
+    (38) GF -> . V ME MA MY MN
+    (7) TD -> . INTEGER_TYPE
+    (8) TD -> . BOOLEAN_TYPE
+    (9) TD -> . DECIMAL_TYPE
+    (10) TD -> . STRING_TYPE
+    (20) CN -> . IF
+    (45) F -> . FOR
+    (11) V -> . VARIABLE
+
+    LESS_OR_EQUAL   shift and go to state 65
+    INTEGER_TYPE    shift and go to state 10
+    BOOLEAN_TYPE    shift and go to state 11
+    DECIMAL_TYPE    shift and go to state 12
+    STRING_TYPE     shift and go to state 13
+    IF              shift and go to state 14
+    FOR             shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    V                              shift and go to state 7
+    C                              shift and go to state 79
+    MN                             shift and go to state 80
+    GV                             shift and go to state 2
+    GC                             shift and go to state 3
+    GCF                            shift and go to state 4
+    GF                             shift and go to state 5
+    TD                             shift and go to state 6
+    CN                             shift and go to state 8
+    F                              shift and go to state 9
+
+state 63
+
+    (36) GF -> V ME MA MY C . MN
+    (53) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 65
+
+    MN                             shift and go to state 81
+
+state 64
+
+    (38) GF -> V ME MA MY MN .
+
+    $end            reduce using rule 38 (GF -> V ME MA MY MN .)
+    LESS_OR_EQUAL   reduce using rule 38 (GF -> V ME MA MY MN .)
+    RETURN          reduce using rule 38 (GF -> V ME MA MY MN .)
+
+
+state 65
+
+    (53) MN -> LESS_OR_EQUAL .
+
+    $end            reduce using rule 53 (MN -> LESS_OR_EQUAL .)
+    LESS_OR_EQUAL   reduce using rule 53 (MN -> LESS_OR_EQUAL .)
+    RETURN          reduce using rule 53 (MN -> LESS_OR_EQUAL .)
+
+
+state 66
+
+    (18) GC -> CN PA CD PC MY . C MN
+    (19) GC -> CN PA CD PC MY . MN
+    (1) C -> . GV
+    (2) C -> . GC
+    (3) C -> . GCF
+    (4) C -> . GF
+    (53) MN -> . LESS_OR_EQUAL
+    (5) GV -> . TD V I VA
+    (6) GV -> . TD V
+    (18) GC -> . CN PA CD PC MY C MN
+    (19) GC -> . CN PA CD PC MY MN
+    (43) GCF -> . F PA CDF PC MY C MN
+    (44) GCF -> . F PA CDF PC MY MN
+    (31) GF -> . TD V ME PR MA MY C RT MN
+    (32) GF -> . V ME PR MA MY C MN
+    (33) GF -> . TD V ME PR MA MY RT MN
+    (34) GF -> . V ME PR MA MY MN
+    (35) GF -> . TD V ME MA MY C RT MN
+    (36) GF -> . V ME MA MY C MN
+    (37) GF -> . TD V ME MA MY RT MN
+    (38) GF -> . V ME MA MY MN
+    (7) TD -> . INTEGER_TYPE
+    (8) TD -> . BOOLEAN_TYPE
+    (9) TD -> . DECIMAL_TYPE
+    (10) TD -> . STRING_TYPE
+    (20) CN -> . IF
+    (45) F -> . FOR
+    (11) V -> . VARIABLE
+
+    LESS_OR_EQUAL   shift and go to state 65
+    INTEGER_TYPE    shift and go to state 10
+    BOOLEAN_TYPE    shift and go to state 11
+    DECIMAL_TYPE    shift and go to state 12
+    STRING_TYPE     shift and go to state 13
+    IF              shift and go to state 14
+    FOR             shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    CN                             shift and go to state 8
+    C                              shift and go to state 82
+    MN                             shift and go to state 83
+    GV                             shift and go to state 2
+    GC                             shift and go to state 3
+    GCF                            shift and go to state 4
+    GF                             shift and go to state 5
+    TD                             shift and go to state 6
+    V                              shift and go to state 7
+    F                              shift and go to state 9
+
+state 67
+
+    (21) CD -> V S V .
+
+    PARENTHESIS_CLOSE reduce using rule 21 (CD -> V S V .)
+
+
+state 68
+
+    (22) CD -> V S VA .
+
+    PARENTHESIS_CLOSE reduce using rule 22 (CD -> V S VA .)
+
+
+state 69
+
+    (24) CD -> VA S VA .
+
+    PARENTHESIS_CLOSE reduce using rule 24 (CD -> VA S VA .)
+
+
+state 70
+
+    (23) CD -> VA S V .
+
+    PARENTHESIS_CLOSE reduce using rule 23 (CD -> VA S V .)
+
+
+state 71
+
+    (14) VA -> NUMBER DOT NUMBER .
+
+    EQUAL           reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+    GREATER_THAN    reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+    LESS_THAN       reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+    GREATER_OR_EQUAL reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+    LESS_OR_EQUAL   reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+    NOT_EQUAL       reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+    $end            reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+    RETURN          reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+    PARENTHESIS_CLOSE reduce using rule 14 (VA -> NUMBER DOT NUMBER .)
+
+
+state 72
+
+    (17) VA -> QUOTATION_MARKS V QUOTATION_MARKS .
+
+    EQUAL           reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    GREATER_THAN    reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    LESS_THAN       reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    GREATER_OR_EQUAL reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    LESS_OR_EQUAL   reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    NOT_EQUAL       reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    $end            reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    RETURN          reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    PARENTHESIS_CLOSE reduce using rule 17 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+
+
+state 73
+
+    (43) GCF -> F PA CDF PC MY . C MN
+    (44) GCF -> F PA CDF PC MY . MN
+    (1) C -> . GV
+    (2) C -> . GC
+    (3) C -> . GCF
+    (4) C -> . GF
+    (53) MN -> . LESS_OR_EQUAL
+    (5) GV -> . TD V I VA
+    (6) GV -> . TD V
+    (18) GC -> . CN PA CD PC MY C MN
+    (19) GC -> . CN PA CD PC MY MN
+    (43) GCF -> . F PA CDF PC MY C MN
+    (44) GCF -> . F PA CDF PC MY MN
+    (31) GF -> . TD V ME PR MA MY C RT MN
+    (32) GF -> . V ME PR MA MY C MN
+    (33) GF -> . TD V ME PR MA MY RT MN
+    (34) GF -> . V ME PR MA MY MN
+    (35) GF -> . TD V ME MA MY C RT MN
+    (36) GF -> . V ME MA MY C MN
+    (37) GF -> . TD V ME MA MY RT MN
+    (38) GF -> . V ME MA MY MN
+    (7) TD -> . INTEGER_TYPE
+    (8) TD -> . BOOLEAN_TYPE
+    (9) TD -> . DECIMAL_TYPE
+    (10) TD -> . STRING_TYPE
+    (20) CN -> . IF
+    (45) F -> . FOR
+    (11) V -> . VARIABLE
+
+    LESS_OR_EQUAL   shift and go to state 65
+    INTEGER_TYPE    shift and go to state 10
+    BOOLEAN_TYPE    shift and go to state 11
+    DECIMAL_TYPE    shift and go to state 12
+    STRING_TYPE     shift and go to state 13
+    IF              shift and go to state 14
+    FOR             shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    F                              shift and go to state 9
+    C                              shift and go to state 84
+    MN                             shift and go to state 85
+    GV                             shift and go to state 2
+    GC                             shift and go to state 3
+    GCF                            shift and go to state 4
+    GF                             shift and go to state 5
+    TD                             shift and go to state 6
+    V                              shift and go to state 7
+    CN                             shift and go to state 8
+
+state 74
+
+    (46) CDF -> NUMBER SE NUMBER . SE O
+    (47) SE -> . PIPE
+
+    PIPE            shift and go to state 59
+
+    SE                             shift and go to state 86
+
+state 75
+
+    (31) GF -> TD V ME PR MA MY . C RT MN
+    (33) GF -> TD V ME PR MA MY . RT MN
+    (1) C -> . GV
+    (2) C -> . GC
+    (3) C -> . GCF
+    (4) C -> . GF
+    (42) RT -> . RETURN V
+    (5) GV -> . TD V I VA
+    (6) GV -> . TD V
+    (18) GC -> . CN PA CD PC MY C MN
+    (19) GC -> . CN PA CD PC MY MN
+    (43) GCF -> . F PA CDF PC MY C MN
+    (44) GCF -> . F PA CDF PC MY MN
+    (31) GF -> . TD V ME PR MA MY C RT MN
+    (32) GF -> . V ME PR MA MY C MN
+    (33) GF -> . TD V ME PR MA MY RT MN
+    (34) GF -> . V ME PR MA MY MN
+    (35) GF -> . TD V ME MA MY C RT MN
+    (36) GF -> . V ME MA MY C MN
+    (37) GF -> . TD V ME MA MY RT MN
+    (38) GF -> . V ME MA MY MN
+    (7) TD -> . INTEGER_TYPE
+    (8) TD -> . BOOLEAN_TYPE
+    (9) TD -> . DECIMAL_TYPE
+    (10) TD -> . STRING_TYPE
+    (20) CN -> . IF
+    (45) F -> . FOR
+    (11) V -> . VARIABLE
+
+    RETURN          shift and go to state 78
+    INTEGER_TYPE    shift and go to state 10
+    BOOLEAN_TYPE    shift and go to state 11
+    DECIMAL_TYPE    shift and go to state 12
+    STRING_TYPE     shift and go to state 13
+    IF              shift and go to state 14
+    FOR             shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    TD                             shift and go to state 6
+    V                              shift and go to state 7
+    C                              shift and go to state 87
+    RT                             shift and go to state 88
+    GV                             shift and go to state 2
+    GC                             shift and go to state 3
+    GCF                            shift and go to state 4
+    GF                             shift and go to state 5
+    CN                             shift and go to state 8
+    F                              shift and go to state 9
+
+state 76
+
+    (35) GF -> TD V ME MA MY C . RT MN
+    (42) RT -> . RETURN V
+
+    RETURN          shift and go to state 78
+
+    RT                             shift and go to state 89
+
+state 77
+
+    (37) GF -> TD V ME MA MY RT . MN
+    (53) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 65
+
+    MN                             shift and go to state 90
+
+state 78
+
+    (42) RT -> RETURN . V
+    (11) V -> . VARIABLE
+
+    VARIABLE        shift and go to state 16
+
+    V                              shift and go to state 91
+
+state 79
+
+    (32) GF -> V ME PR MA MY C . MN
+    (53) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 65
+
+    MN                             shift and go to state 92
+
+state 80
+
+    (34) GF -> V ME PR MA MY MN .
+
+    $end            reduce using rule 34 (GF -> V ME PR MA MY MN .)
+    LESS_OR_EQUAL   reduce using rule 34 (GF -> V ME PR MA MY MN .)
+    RETURN          reduce using rule 34 (GF -> V ME PR MA MY MN .)
+
+
+state 81
+
+    (36) GF -> V ME MA MY C MN .
+
+    $end            reduce using rule 36 (GF -> V ME MA MY C MN .)
+    LESS_OR_EQUAL   reduce using rule 36 (GF -> V ME MA MY C MN .)
+    RETURN          reduce using rule 36 (GF -> V ME MA MY C MN .)
+
+
+state 82
+
+    (18) GC -> CN PA CD PC MY C . MN
+    (53) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 65
+
+    MN                             shift and go to state 93
+
+state 83
+
+    (19) GC -> CN PA CD PC MY MN .
+
+    $end            reduce using rule 19 (GC -> CN PA CD PC MY MN .)
+    LESS_OR_EQUAL   reduce using rule 19 (GC -> CN PA CD PC MY MN .)
+    RETURN          reduce using rule 19 (GC -> CN PA CD PC MY MN .)
+
+
+state 84
+
+    (43) GCF -> F PA CDF PC MY C . MN
+    (53) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 65
+
+    MN                             shift and go to state 94
+
+state 85
+
+    (44) GCF -> F PA CDF PC MY MN .
+
+    $end            reduce using rule 44 (GCF -> F PA CDF PC MY MN .)
+    LESS_OR_EQUAL   reduce using rule 44 (GCF -> F PA CDF PC MY MN .)
+    RETURN          reduce using rule 44 (GCF -> F PA CDF PC MY MN .)
+
+
+state 86
+
+    (46) CDF -> NUMBER SE NUMBER SE . O
+    (48) O -> . SUBTRACTION
+    (49) O -> . ADDITION
+
+    SUBTRACTION     shift and go to state 96
+    ADDITION        shift and go to state 97
+
+    O                              shift and go to state 95
+
+state 87
+
+    (31) GF -> TD V ME PR MA MY C . RT MN
+    (42) RT -> . RETURN V
+
+    RETURN          shift and go to state 78
+
+    RT                             shift and go to state 98
+
+state 88
+
+    (33) GF -> TD V ME PR MA MY RT . MN
+    (53) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 65
+
+    MN                             shift and go to state 99
+
+state 89
+
+    (35) GF -> TD V ME MA MY C RT . MN
+    (53) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 65
+
+    MN                             shift and go to state 100
+
+state 90
+
+    (37) GF -> TD V ME MA MY RT MN .
+
+    $end            reduce using rule 37 (GF -> TD V ME MA MY RT MN .)
+    LESS_OR_EQUAL   reduce using rule 37 (GF -> TD V ME MA MY RT MN .)
+    RETURN          reduce using rule 37 (GF -> TD V ME MA MY RT MN .)
+
+
+state 91
+
+    (42) RT -> RETURN V .
+
+    LESS_OR_EQUAL   reduce using rule 42 (RT -> RETURN V .)
+
+
+state 92
+
+    (32) GF -> V ME PR MA MY C MN .
+
+    $end            reduce using rule 32 (GF -> V ME PR MA MY C MN .)
+    LESS_OR_EQUAL   reduce using rule 32 (GF -> V ME PR MA MY C MN .)
+    RETURN          reduce using rule 32 (GF -> V ME PR MA MY C MN .)
+
+
+state 93
+
+    (18) GC -> CN PA CD PC MY C MN .
+
+    $end            reduce using rule 18 (GC -> CN PA CD PC MY C MN .)
+    LESS_OR_EQUAL   reduce using rule 18 (GC -> CN PA CD PC MY C MN .)
+    RETURN          reduce using rule 18 (GC -> CN PA CD PC MY C MN .)
+
+
+state 94
+
+    (43) GCF -> F PA CDF PC MY C MN .
+
+    $end            reduce using rule 43 (GCF -> F PA CDF PC MY C MN .)
+    LESS_OR_EQUAL   reduce using rule 43 (GCF -> F PA CDF PC MY C MN .)
+    RETURN          reduce using rule 43 (GCF -> F PA CDF PC MY C MN .)
+
+
+state 95
+
+    (46) CDF -> NUMBER SE NUMBER SE O .
+
+    PARENTHESIS_CLOSE reduce using rule 46 (CDF -> NUMBER SE NUMBER SE O .)
+
+
+state 96
+
+    (48) O -> SUBTRACTION .
+
+    PARENTHESIS_CLOSE reduce using rule 48 (O -> SUBTRACTION .)
+
+
+state 97
+
+    (49) O -> ADDITION .
+
+    PARENTHESIS_CLOSE reduce using rule 49 (O -> ADDITION .)
+
+
+state 98
+
+    (31) GF -> TD V ME PR MA MY C RT . MN
+    (53) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 65
+
+    MN                             shift and go to state 101
+
+state 99
+
+    (33) GF -> TD V ME PR MA MY RT MN .
+
+    $end            reduce using rule 33 (GF -> TD V ME PR MA MY RT MN .)
+    LESS_OR_EQUAL   reduce using rule 33 (GF -> TD V ME PR MA MY RT MN .)
+    RETURN          reduce using rule 33 (GF -> TD V ME PR MA MY RT MN .)
+
+
+state 100
+
+    (35) GF -> TD V ME MA MY C RT MN .
+
+    $end            reduce using rule 35 (GF -> TD V ME MA MY C RT MN .)
+    LESS_OR_EQUAL   reduce using rule 35 (GF -> TD V ME MA MY C RT MN .)
+    RETURN          reduce using rule 35 (GF -> TD V ME MA MY C RT MN .)
+
+
+state 101
+
+    (31) GF -> TD V ME PR MA MY C RT MN .
+
+    $end            reduce using rule 31 (GF -> TD V ME PR MA MY C RT MN .)
+    LESS_OR_EQUAL   reduce using rule 31 (GF -> TD V ME PR MA MY C RT MN .)
+    RETURN          reduce using rule 31 (GF -> TD V ME PR MA MY C RT MN .)
+
