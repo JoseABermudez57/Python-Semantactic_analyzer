@@ -93,29 +93,56 @@ def t_error(t):
 lexer = lex()
 
 
+def p_PROGRAM(p):
+    '''
+	PROGRAM : BLOCK_CODE
+	'''
+    p[0] = p[1]
+
+
+def p_BLOCK_CODE(p):
+    '''
+    BLOCK_CODE : GV
+            | GC
+            | GF
+            | GCF
+            | EMPTY
+    '''
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        pass
+
+
 # Content
 def p_C(p):
     '''
     C : GV
         | GC
         | GCF
-        | GF
+        | EMPTY
     '''
-    p[0] = p[1]
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        pass
 
 
 # Grammar of variable declaration
 def p_GV(p):
     '''
-    GV : TD V I VA
-        | TD V
+    GV : TD V I VA BLOCK_CODE
+        | TD V BLOCK_CODE
+        | EMPTY
     '''
-    if len(p) == 3:
-        p[0] = (p[1], p[2])
+    if len(p) == 4:
+        p[0] = (p[1], p[2], p[3])
         variables[p[2]] = None
-    else:
-        p[0] = (p[1], p[2], p[3], p[4])
+    elif len(p) == 6:
+        p[0] = (p[1], p[2], p[3], p[4], p[5])
         variables[p[2]] = p[4]
+    else:
+        pass
 
 
 # Type data
@@ -163,13 +190,16 @@ def p_VA(p):
 # Grammar of conditional declaration
 def p_GC(p):
     '''
-    GC : CN PA CD PC MY C MN
-        | CN PA CD PC MY MN
+    GC : CN PA CD PC MY C MN BLOCK_CODE
+        | CN PA CD PC MY MN BLOCK_CODE
+        | EMPTY
     '''
-    if len(p) == 8:
+    if len(p) == 9:
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
+    elif len(p) == 8:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7])
     else:
-        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6])
+        pass
 
 
 # If
@@ -207,25 +237,28 @@ def p_S(p):
 # Grammar of function declaration
 def p_GF(p):
     '''
-    GF : TD V ME PR MA MY C RT MN
-        | V ME PR MA MY C MN
-        | TD V ME PR MA MY RT MN
-        | V ME PR MA MY MN
-        | TD V ME MA MY C RT MN
-        | V ME MA MY C MN
-        | TD V ME MA MY RT MN
-        | V ME MA MY MN
+    GF : TD V ME PR MA MY C RT MN BLOCK_CODE
+        | V ME PR MA MY C MN BLOCK_CODE
+        | TD V ME PR MA MY RT MN BLOCK_CODE
+        | V ME PR MA MY MN BLOCK_CODE
+        | TD V ME MA MY C RT MN BLOCK_CODE
+        | V ME MA MY C MN BLOCK_CODE
+        | TD V ME MA MY RT MN BLOCK_CODE
+        | V ME MA MY MN BLOCK_CODE
+        | EMPTY
     '''
-    if len(p) == 8:
-        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7])
-    elif len(p) == 10:
+    if len(p) == 10:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9])
-    elif len(p) == 7:
-        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6])
+    elif len(p) == 12:
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11])
     elif len(p) == 9:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
+    elif len(p) == 11:
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10])
+    elif len(p) == 8:
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7])
     else:
-        p[0] = (p[1], p[2], p[3], p[4], p[5])
+        pass
 
 
 # Variable parameter
@@ -263,13 +296,16 @@ def p_RT(p):
 # Grammar of cycle declaration
 def p_GCF(p):
     '''
-    GCF : F PA CDF PC MY C MN
-        | F PA CDF PC MY MN
+    GCF : F PA CDF PC MY C MN BLOCK_CODE
+        | F PA CDF PC MY MN BLOCK_CODE
+        | EMPTY
     '''
-    if len(p) == 8:
-        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7])
+    if len(p) == 9:
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
+    elif len(p) == 8:
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], [7])
     else:
-        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6])
+        pass
 
 
 # for
@@ -340,13 +376,25 @@ def p_MN(p):
     p[0] = p[1]
 
 
+def p_empty(p):
+    '''
+	EMPTY :
+	'''
+    pass
+
+
+errors = []
+
+
 # Error handler for syntax errors
 def p_error(p):
     global error_value
     if p:
         error_value = "Syntax error", p.value
+        errors.append(error_value)
     else:
         error_value = "Syntax error", "AL FINAL DE LA ENTRADA"
+        errors.append(error_value)
 
 
 parser = yacc()
@@ -354,6 +402,7 @@ parser = yacc()
 
 def analyze_syntax(tokens):
     global error_value
+    errors.clear()
     input_entry = ""
     for token, lexeme in tokens:
         input_entry += f'{lexeme} '
@@ -363,9 +412,15 @@ def analyze_syntax(tokens):
     #     print(t)
 
     validated_entry = parser.parse(input_entry)
-    if type(validated_entry) is tuple:
-        error_value = None, None
+    if type(validated_entry) is tuple and len(errors) == 0:
         print(variables)
+        error_value = None, None
         return f'CADENA VALIDA \n'
+    elif validated_entry is tuple and len(errors) > 0:
+        return f'CADENA INVALIDA {errors[0][1]} \n'
+    elif validated_entry is None and len(errors) > 0:
+        return f'CADENA INVALIDA {errors[0][1]} \n'
     else:
-        return f'CADENA INVALIDA {error_value[1]} \n'
+        value_error = f'CADENA INVALIDA {error_value[1]} \n'
+        error_value = None, None
+        return value_error

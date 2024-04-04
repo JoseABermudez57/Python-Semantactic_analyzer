@@ -53,6 +53,7 @@ def insert_syntactic_result_text():
         token = lexer.next_token()
         t, lexeme = token
         format_token = f'TOKEN: {t} - LEXEMA: {lexeme}'
+    print(result)
     result_syntactic = analyze_syntax(result)
     result_show.insert(0, result_syntactic)
     entry_2.insert(END, "\n".join(map(str, result_show)))
