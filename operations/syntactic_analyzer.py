@@ -129,6 +129,34 @@ def p_C(p):
 
 
 # Grammar of variable declaration
+def check_variable_type(variable, value):
+    print(f"variable: {variable}, value: {value}, type: {type(value)}")
+    if variable[0] == 'Ent':
+        if not isinstance(value, int):
+            print(f"Variable {variable[1]} debe ser de tipo entero")
+        else:
+            print("Tipo de dato valido")
+    elif variable[0] == 'Bool':
+        if not (value == 'True' or value == 'False'):
+            print(f"Variable {variable[1]} debe ser de tipo booleano")
+        else:
+            print("Tipo de dato valido")
+    elif variable[0] == 'Dcm':
+        if not isinstance(value, float):
+            print(f"Variable {variable[1]} debe ser de tipo decimal")
+        else:
+            print("Tipo de dato valido")
+    elif variable[0] == 'Cdn':
+        if not isinstance(value, str):
+            print(f"Variable {variable[1]} debe ser de tipo cadena")
+        elif not (value.startswith('"') and value.endswith('"')):
+            print(f"Variable {variable[1]} debe ser una cadena entre comillas")
+        else:
+            print("Tipo de dato valido")
+    else:
+        print(f"Tipo de dato desconocido para variable {variable[1]}")
+
+
 def p_GV(p):
     '''
     GV : TD V I VA BLOCK_CODE
@@ -140,6 +168,8 @@ def p_GV(p):
         variables[p[2]] = None
     elif len(p) == 6:
         p[0] = (p[1], p[2], p[3], p[4], p[5])
+        if p[4] is not None:
+            check_variable_type((p[1], p[2]), p[4])
         variables[p[2]] = p[4]
     else:
         pass
@@ -176,15 +206,16 @@ def p_I(p):
 def p_VA(p):
     '''
     VA : NUMBER
-        | NUMBER DOT NUMBER
-        | TRUE_VALUE
-        | FALSE_VALUE
-        | QUOTATION_MARKS V QUOTATION_MARKS
+       | NUMBER DOT NUMBER
+       | TRUE_VALUE
+       | FALSE_VALUE
+       | QUOTATION_MARKS V QUOTATION_MARKS
     '''
     if len(p) == 4:
-        p[0] = (p[1], p[2], p[3])
-    else:
-        p[0] = p[1]
+        p[0] = float(str(p[1]) + str(p[2]) + str(p[3])) if '.' in p[2] else str(p[1] + p[2] + p[3])
+    else:  # Caso de número entero o booleano
+        p[0] = int(p[1]) if p[1].isdigit() else p[1]
+
 
 
 # Grammar of conditional declaration
@@ -409,11 +440,9 @@ def analyze_syntax(tokens):
 
     # lexer.input(input_entry)
     # for t in lexer:
-    #     print(t)
 
     validated_entry = parser.parse(input_entry)
     if type(validated_entry) is tuple and len(errors) == 0:
-        print(variables)
         error_value = None, None
         return f'CADENA VALIDA \n'
     elif validated_entry is tuple and len(errors) > 0:
