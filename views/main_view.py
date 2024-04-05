@@ -2,7 +2,7 @@ from pathlib import Path
 from operations.syntactic_analyzer import analyze_syntax
 from operations.lexical_analyzer.lexer import Lexer
 
-from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, NORMAL, DISABLED
+from tkinter import Tk, Canvas, Text, Entry, Button, PhotoImage, END, NORMAL, DISABLED
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"assets/main_frame")
@@ -40,7 +40,9 @@ image_1 = canvas.create_image(
 
 def insert_syntactic_result_text():
     entry_2.config(state=NORMAL)
+    entry_3.config(state=NORMAL)
     entry_2.delete('1.0', END)
+    entry_3.delete('1.0', END)
     result = []
     result_show = []
     lexer = Lexer(entry_1.get(1.0, END))
@@ -54,9 +56,12 @@ def insert_syntactic_result_text():
         t, lexeme = token
         format_token = f'TOKEN: {t} - LEXEMA: {lexeme}'
     result_syntactic = analyze_syntax(result)
-    result_show.insert(0, result_syntactic)
+    print(result_syntactic)
+    result_show.insert(0, result_syntactic[0])
     entry_2.insert(END, "\n".join(map(str, result_show)))
+    entry_3.insert(END, "\n".join([elem for elem in result_syntactic[1] if elem and isinstance(elem, str)]))
     entry_2.config(state=DISABLED)
+    entry_3.config(state=DISABLED)
 
 
 def insert_code_result_text():

@@ -5,6 +5,9 @@ from ply.yacc import yacc
 error_value = None, None
 
 variables = {}
+variables_err = []
+conditional_result = []
+loop_result = []
 
 # --- Tokenizer
 
@@ -106,6 +109,7 @@ def p_BLOCK_CODE(p):
             | GC
             | GF
             | GCF
+            | PRINT
             | EMPTY
     '''
     if len(p) == 2:
@@ -120,6 +124,7 @@ def p_C(p):
     C : GV
         | GC
         | GCF
+        | PRINT
         | EMPTY
     '''
     if len(p) == 2:
@@ -130,31 +135,35 @@ def p_C(p):
 
 # Grammar of variable declaration
 def check_variable_type(variable, value):
-    print(f"variable: {variable}, value: {value}, type: {type(value)}")
-    if variable[0] == 'Ent':
-        if not isinstance(value, int):
-            print(f"Variable {variable[1]} debe ser de tipo entero")
+    # print(f"variable: {variable}, value: {value}, type: {type(value)}")
+    variable_type, variable_name = variable
+    error = ""
+
+    if (variable_type, variable_name) in variables:
+        if variable_type == 'Ent':
+            if not isinstance(value, int):
+                error = f"Variable '{variable_name}' debe ser de tipo entero - valor {value}"
+        elif variable_type == 'Bool':
+            if not (value == 'True' or value == 'False'):
+                error = f"Variable '{variable_name}' debe ser de tipo booleano"
+        elif variable_type == 'Dcm':
+            if not isinstance(value, float):
+                error = f"Variable '{variable_name}' debe ser de tipo decimal"
+        elif variable_type == 'Cdn':
+            if not isinstance(value, str):
+                error = f"Variable '{variable_name}' debe ser de tipo cadena"
         else:
-            print("Tipo de dato valido")
-    elif variable[0] == 'Bool':
-        if not (value == 'True' or value == 'False'):
-            print(f"Variable {variable[1]} debe ser de tipo booleano")
-        else:
-            print("Tipo de dato valido")
-    elif variable[0] == 'Dcm':
-        if not isinstance(value, float):
-            print(f"Variable {variable[1]} debe ser de tipo decimal")
-        else:
-            print("Tipo de dato valido")
-    elif variable[0] == 'Cdn':
-        if not isinstance(value, str):
-            print(f"Variable {variable[1]} debe ser de tipo cadena")
-        elif not (value.startswith('"') and value.endswith('"')):
-            print(f"Variable {variable[1]} debe ser una cadena entre comillas")
-        else:
-            print("Tipo de dato valido")
+            error = f"Tipo de dato desconocido para variable '{variable_name}'"
     else:
-        print(f"Tipo de dato desconocido para variable {variable[1]}")
+        # Nueva variable
+        variables[(variable_type, variable_name)] = value
+        check_variable_type((variable_type, variable_name), value)
+
+    if error == "":
+        return True
+    else:
+        variables_err.append(error)
+        return False
 
 
 def p_GV(p):
@@ -165,14 +174,49 @@ def p_GV(p):
     '''
     if len(p) == 4:
         p[0] = (p[1], p[2], p[3])
-        variables[p[2]] = None
+        print((p[1], p[2], p[3]))
+        variables[(p[1], p[2])] = None
     elif len(p) == 6:
         p[0] = (p[1], p[2], p[3], p[4], p[5])
-        if p[4] is not None:
-            check_variable_type((p[1], p[2]), p[4])
-        variables[p[2]] = p[4]
+        print((p[1], p[2], p[3], p[4], p[5]))
+        if check_variable_type((p[1], p[2]), p[4]):
+            variables[(p[1], p[2])] = p[4]
+            print("Variables -> ", variables)
     else:
         pass
+
+
+def p_PRINT(p):
+    '''
+    PRINT : SUBTRACTION MA VAP ME SUBTRACTION BLOCK_CODE
+        | EMPTY
+    '''
+    if len(p) == 5:
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6])
+    else:
+        pass
+
+
+def p_VAP(p):
+    '''
+    VAP : V
+        | VA
+        | CD
+        | FR
+    '''
+    p[0] = p[1]
+
+
+def p_FR(p):
+    '''
+    FR : TD V ME PR MA
+        | TD V ME MA
+    '''
+    if len(p) == 6:
+        p[0] = (p[1], p[2], p[3], p[4], p[5])
+    else:
+        p[0] = (p[1], p[2], p[3], p[4])
+
 
 
 # Type data
@@ -211,11 +255,10 @@ def p_VA(p):
        | FALSE_VALUE
        | QUOTATION_MARKS V QUOTATION_MARKS
     '''
-    if len(p) == 4:
+    if len(p) == 4:  # Decimal or String
         p[0] = float(str(p[1]) + str(p[2]) + str(p[3])) if '.' in p[2] else str(p[1] + p[2] + p[3])
-    else:  # Caso de número entero o booleano
+    else:  # Int or Boolean
         p[0] = int(p[1]) if p[1].isdigit() else p[1]
-
 
 
 # Grammar of conditional declaration
@@ -227,8 +270,10 @@ def p_GC(p):
     '''
     if len(p) == 9:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
+        print((p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]))
     elif len(p) == 8:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7])
+        print((p[1], p[2], p[3], p[4], p[5], p[6], p[7]))
     else:
         pass
 
@@ -241,6 +286,10 @@ def p_CN(p):
     p[0] = p[1]
 
 
+def validate_conditions(p1, p2, p3):
+    return None
+
+
 # Condition
 def p_CD(p):
     '''
@@ -249,6 +298,7 @@ def p_CD(p):
         | VA S V
         | VA S VA
     '''
+    validate_conditions(p[1], p[2], p[3])
     p[0] = (p[1], p[2], p[3])
 
 
@@ -333,8 +383,10 @@ def p_GCF(p):
     '''
     if len(p) == 9:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
+        print((p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]))
     elif len(p) == 8:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], [7])
+        print((p[1], p[2], p[3], p[4], p[5], p[6], p[7]))
     else:
         pass
 
@@ -431,25 +483,59 @@ def p_error(p):
 parser = yacc()
 
 
-def analyze_syntax(tokens):
+def analyze_syntax(tkn):
     global error_value
+    variables_err.clear()
     errors.clear()
     input_entry = ""
-    for token, lexeme in tokens:
+    # input_entry_list = []
+    # count = 1
+    for token, lexeme in tkn:
+        # if token == "INTEGER_TYPE" or token == "DECIMAL_TYPE" or token == "STRING_TYPE" or token == "BOOLEAN_TYPE" or token == 'IF' or token == 'FOR':
+        #     input_entry_list.append(input_entry)
+        #     input_entry = ""
         input_entry += f'{lexeme} '
+        # if count == len(tkn):
+        #     input_entry_list.append(input_entry)
+        #     input_entry = ""
+        # count += 1
+
+    print(input_entry)
+
+    # [print(c) for c in input_entry_list]
 
     # lexer.input(input_entry)
     # for t in lexer:
 
+    # input_entry = ""
+    # for index, structure in enumerate(input_entry_list):
+    #     print(structure, index)
+    #     print("asdf")
+    #     if structure.strip().endswith("<=") or not structure.strip().endswith("=>"):
+    #         va = input_entry_list[index - 1]
+    #         input_entry_list[index - 1] = structure
+    #         input_entry_list[index] = va
+    #     input_entry += f'{structure}'
+    #
+    # print("cvb")
+    # [print(c) for c in input_entry_list]
+    #
+    # for s in reversed(input_entry_list):
+    #     print("------------------------")
+    #     print(s)
+    # print("--------asdfsdfasdf------")
+
     validated_entry = parser.parse(input_entry)
+    print(validated_entry, len(errors))
     if type(validated_entry) is tuple and len(errors) == 0:
         error_value = None, None
-        return f'CADENA VALIDA \n'
+        print("Variables valor final -> ", variables)
+        return f'CADENA VALIDA \n', variables_err
     elif validated_entry is tuple and len(errors) > 0:
-        return f'CADENA INVALIDA {errors[0][1]} \n'
+        return f'CADENA INVALIDA {errors[0][1]} \n', []
     elif validated_entry is None and len(errors) > 0:
-        return f'CADENA INVALIDA {errors[0][1]} \n'
+        return f'CADENA INVALIDA {errors[0][1]} \n', []
     else:
         value_error = f'CADENA INVALIDA {error_value[1]} \n'
         error_value = None, None
-        return value_error
+        return value_error, []
