@@ -110,7 +110,6 @@ def p_BLOCK_CODE(p):
             | GC
             | GF
             | GCF
-            | PRINT
             | EMPTY
     '''
     if len(p) == 2:
@@ -125,7 +124,6 @@ def p_C(p):
     C : GV
         | GC
         | GCF
-        | PRINT
         | EMPTY
     '''
     if len(p) == 2:
@@ -135,36 +133,30 @@ def p_C(p):
 
 
 # Grammar of variable declaration
-def check_variable_type(variable, value):
-    # print(f"variable: {variable}, value: {value}, type: {type(value)}")
-    variable_type, variable_name = variable
+def check_variable_type(type_variable, name, value):
     error = ""
-
-    if (variable_type, variable_name) in variables:
-        if variable_type == 'Ent':
-            if not isinstance(value, int):
-                error = f"Variable '{variable_name}' debe ser de tipo entero - valor {value}"
-        elif variable_type == 'Bool':
+    if (type_variable, name) in variables:
+        if type_variable == "Ent":
+            if not isinstance(value if not isinstance(value, bool) else str(value), int):
+                error = f"Variable '{name}' debe ser de tipo entero - valor {value}"
+        elif type_variable == 'Bool':
             if not isinstance(value, bool):
-                error = f"Variable '{variable_name}' debe ser de tipo booleano"
-        elif variable_type == 'Dcm':
+                error = f"Variable '{name}' debe ser de tipo booleano"
+        elif type_variable == 'Dcm':
             if not isinstance(value, float):
-                error = f"Variable '{variable_name}' debe ser de tipo decimal"
-        elif variable_type == 'Cdn':
+                error = f"Variable '{name}' debe ser de tipo decimal"
+        elif type_variable == 'Cdn':
             if not isinstance(value, str):
-                error = f"Variable '{variable_name}' debe ser de tipo cadena"
+                error = f"Variable '{name}' debe ser de tipo cadena"
         else:
-            error = f"Tipo de dato desconocido para variable '{variable_name}'"
+            error = f"Tipo de dato desconocido para variable '{name}'"
     else:
         # Nueva variable
-        variables[(variable_type, variable_name)] = value
-        check_variable_type((variable_type, variable_name), value)
+        variables[(type_variable, name)] = value
+        check_variable_type(type_variable, name, value)
 
-    if error == "":
-        return True
-    else:
+    if error != "":
         variables_err.append(error)
-        return False
 
 
 def p_GV(p):
@@ -175,49 +167,12 @@ def p_GV(p):
     '''
     if len(p) == 4:
         p[0] = (p[1], p[2], p[3])
-        print((p[1], p[2], p[3]))
         variables[(p[1], p[2])] = None
     elif len(p) == 6:
         p[0] = (p[1], p[2], p[3], p[4], p[5])
-        print((p[1], p[2], p[3], p[4], p[5]))
-        if check_variable_type((p[1], p[2]), p[4]):
-            variables[(p[1], p[2])] = p[4]
-            print("Variables -> ", variables)
+        check_variable_type(p[1], p[2], p[4])
     else:
         pass
-
-
-def p_PRINT(p):
-    '''
-    PRINT : SUBTRACTION MA VAP ME SUBTRACTION BLOCK_CODE
-        | EMPTY
-    '''
-    if len(p) == 5:
-        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6])
-    else:
-        pass
-
-
-def p_VAP(p):
-    '''
-    VAP : V
-        | VA
-        | CD
-        | FR
-    '''
-    p[0] = p[1]
-
-
-def p_FR(p):
-    '''
-    FR : TD V ME PR MA
-        | TD V ME MA
-    '''
-    if len(p) == 6:
-        p[0] = (p[1], p[2], p[3], p[4], p[5])
-    else:
-        p[0] = (p[1], p[2], p[3], p[4])
-
 
 
 # Type data
@@ -257,9 +212,9 @@ def p_VA(p):
        | QUOTATION_MARKS V QUOTATION_MARKS
     '''
     if len(p) == 4:  # Decimal or String
-        p[0] = float(str(p[1]) + str(p[2]) + str(p[3])) if '.' in p[2] else str(p[1] + p[2] + p[3])
+        p[0] = float(p[1] + p[2] + p[3]) if '.' in p[2] else p[1] + p[2] + p[3]
     else:  # Int or Boolean
-        p[0] = int(p[1]) if p[1].isdigit() else bool(p[1])
+        p[0] = int(p[1]) if p[1].isdigit() else False if p[1] == "False" else True
 
 
 # Grammar of conditional declaration
@@ -270,15 +225,9 @@ def p_GC(p):
         | EMPTY
     '''
     if len(p) == 9:
-        if p[3]:
-            p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
-        else:
-            p[0] = p[8]
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
     elif len(p) == 8:
-        if p[3]:
-            p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7])
-        else:
-            p[0] = p[7]
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7])
     else:
         pass
 
@@ -297,102 +246,100 @@ def validate_conditions(p1, p2, p3):
     if p2 == "<":
         if isinstance(p1, (int, float)) and isinstance(p3, (int, float)):
             p0 = p1 < p3
-        elif isinstance(p1, (int, float)) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = p1 < variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and isinstance(p3, (int, float)):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] < p3
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] < variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
+        elif isinstance(p1, (int, float)) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = p1 < (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and isinstance(p3, (int, float)):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) < p3
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) < (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
         else:
-            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida"
+            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida, Valor '{p1}' o '{p3}' no es valido"
     elif p2 == ">":
         if isinstance(p1, (int, float)) and isinstance(p3, (int, float)):
             p0 = p1 > p3
-        elif isinstance(p1, (int, float)) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = p1 > variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and isinstance(p3, (int, float)):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] > p3
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] > variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
+        elif isinstance(p1, (int, float)) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = p1 > (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and isinstance(p3, (int, float)):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) > p3
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) > (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
         else:
-            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida"
+            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida, Valor '{p1}' o '{p3}' no es valido"
     elif p2 == "<=":
         if isinstance(p1, (int, float)) and isinstance(p3, (int, float)):
             p0 = p1 <= p3
-        elif isinstance(p1, (int, float)) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = p1 <= variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and isinstance(p3, (int, float)):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] <= p3
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] <= variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
+        elif isinstance(p1, (int, float)) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = p1 <= (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and isinstance(p3, (int, float)):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) <= p3
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) <= (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
         else:
-            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida"
+            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida, Valor '{p1}' o '{p3}' no es valido"
     elif p2 == ">=":
         if isinstance(p1, (int, float)) and isinstance(p3, (int, float)):
             p0 = p1 >= p3
-        elif isinstance(p1, (int, float)) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = p1 >= variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and isinstance(p3, (int, float)):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] >= p3
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] >= variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
+        elif isinstance(p1, (int, float)) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = p1 >= (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and isinstance(p3, (int, float)):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) >= p3
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) >= (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
         else:
-            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida"
+            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida, Valor '{p1}' o '{p3}' no es valido"
     elif p2 == "==":
         if (isinstance(p1, (int, float)) and isinstance(p3, (int, float))) or (isinstance(p1, str) and isinstance(p3, str)) or (isinstance(p1, bool) and isinstance(p3, bool)):
             p0 = p1 == p3
-        elif isinstance(p1, (int, float)) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = p1 == variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and isinstance(p3, (int, float)):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] == p3
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] == variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
-        elif isinstance(p1, str) and (("Cdn", p3) in variables):
-            p0 = p1 == variables[("Cdn", p3)]
-        elif (("Cdn", p1) in variables) and isinstance(p3, str):
-            p0 = variables[("Cdn", p1)] == p3
-        elif (("Cdn", p1) in variables) and (("Cdn", p3) in variables):
-            p0 = variables[("Cdn", p1)] == variables[("Cdn", p3)]
-        elif isinstance(p1, bool) and (("Bool", p3) in variables):
-            print(variables[("Bool", p3)], "ASDFASDF")
+        elif isinstance(p1, (int, float)) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = p1 == (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and isinstance(p3, (int, float)):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) == p3
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) == (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
+        elif isinstance(p1, str) and (('Cdn', p3) in variables):
+            p0 = p1 == variables[('Cdn', p3)]
+        elif (('Cdn', p1) in variables) and isinstance(p3, str):
+            p0 = variables[('Cdn', p1)] == p3
+        elif (('Cdn', p1) in variables) and (('Cdn', p3) in variables):
+            p0 = variables[('Cdn', p1)] == variables[('Cdn', p3)]
+        elif isinstance(p1, bool) and (('Bool', p3) in variables):
             p0 = p1 == variables[("Bool", p3)]
-        elif (("Bool", p1) in variables) and isinstance(p3, bool):
-            p0 = variables[("Bool", p1)] == p3
-        elif (("Bool", p1) in variables) and (("Bool", p3) in variables):
-            p0 = variables[("Bool", p1)] == variables[("Bool", p3)]
+        elif (('Bool', p1) in variables) and isinstance(p3, bool):
+            p0 = variables[('Bool', p1)] == p3
+        elif (('Bool', p1) in variables) and (('Bool', p3) in variables):
+            p0 = variables[('Bool', p1)] == variables[('Bool', p3)]
         else:
-            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida"
+            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida, Valor '{p1}' o '{p3}' no es valido"
     elif p2 == "!=":
         if (isinstance(p1, (int, float)) and isinstance(p3, (int, float))) or (isinstance(p1, str) and isinstance(p3, str)) or (isinstance(p1, bool) and isinstance(p3, bool)):
             p0 = p1 != p3
-        elif isinstance(p1, (int, float)) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = p1 != variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and isinstance(p3, (int, float)):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] != p3
-        elif (("Ent", p1) in variables or ("Dcm", p1) in variables) and (("Ent", p3) in variables or ("Dcm", p3) in variables):
-            p0 = variables[("Ent", p1)] if ("Ent", p1) in variables else variables[("Dcm", p1)] != variables[("Ent", p3)] if ("Ent", p3) in variables else variables[("Dcm", p3)]
-        elif isinstance(p1, str) and (("Cdn", p3) in variables):
-            p0 = p1 != variables[("Cdn", p3)]
-        elif (("Cdn", p1) in variables) and isinstance(p3, str):
-            p0 = variables[("Cdn", p1)] != p3
-        elif (("Cdn", p1) in variables) and (("Cdn", p3) in variables):
-            p0 = variables[("Cdn", p1)] != variables[("Cdn", p3)]
-        elif isinstance(p1, bool) and (("Bool", p3) in variables):
-            p0 = p1 == variables[("Bool", p3)]
-        elif (("Bool", p1) in variables) and isinstance(p3, bool):
-            p0 = variables[("Bool", p1)] != p3
-        elif (("Bool", p1) in variables) and (("Bool", p3) in variables):
-            p0 = variables[("Bool", p1)] != variables[("Bool", p3)]
+        elif isinstance(p1, (int, float)) and (('Ent', p3) in variables or ('Ent', p3) in variables):
+            p0 = p1 != (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and isinstance(p3, (int, float)):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) != p3
+        elif (('Ent', p1) in variables or ('Dcm', p1) in variables) and (('Ent', p3) in variables or ('Dcm', p3) in variables):
+            p0 = (variables[('Ent', p1)] if ('Ent', p1) in variables else variables[('Dcm', p1)]) != (variables[('Ent', p3)] if ('Ent', p3) in variables else variables[('Dcm', p3)])
+        elif isinstance(p1, str) and (('Cdn', p3) in variables):
+            p0 = p1 != variables[('Cdn', p3)]
+        elif (('Cdn', p1) in variables) and isinstance(p3, str):
+            p0 = variables[('Cdn', p1)] != p3
+        elif (('Cdn', p1) in variables) and (('Cdn', p3) in variables):
+            p0 = variables[('Cdn', p1)] != variables[('Cdn', p3)]
+        elif isinstance(p1, bool) and (('Bool', p3) in variables):
+            p0 = p1 != variables[('Bool', p3)]
+        elif (('Bool', p1) in variables) and isinstance(p3, bool):
+            p0 = variables[('Bool', p1)] != p3
+        elif (('Bool', p1) in variables) and (('Bool', p3) in variables):
+            p0 = variables[('Bool', p1)] != variables[('Bool', p3)]
         else:
-            error = f"Valor '{p1}' o '{p3}' no es valido"
+            error = f"La condicional '{p1} '{p2}' '{p3}' no es valida, Valor '{p1}' o '{p3}' no es valido"
     else:
         error = f"Operador '{p2}' no es un operador valido"
 
     if error == "" and p0 != "":
-        return ((p1, p2, p3), p0), True
+        conditional_result.append(((p1, p2, p3), p0))
     else:
         conditional_err.append(error)
-        return (), False
 
 
 # Condition
@@ -403,10 +350,8 @@ def p_CD(p):
         | VA S V
         | VA S VA
     '''
-    conditional = validate_conditions(p[1], p[2], p[3])
-    if conditional[1]:
-        p[0] = conditional[0][1]
-        conditional_result.append(conditional[0])
+    p[0] = (p[1], p[2], p[3])
+    validate_conditions(p[1], p[2], p[3])
 
 
 # Symbols
@@ -490,10 +435,8 @@ def p_GCF(p):
     '''
     if len(p) == 9:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
-        print((p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8]))
     elif len(p) == 8:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], [7])
-        print((p[1], p[2], p[3], p[4], p[5], p[6], p[7]))
     else:
         pass
 
@@ -635,25 +578,42 @@ def analyze_syntax(tkn):
             structures.append(structure[:])
             structure.clear()
 
-    for s in reversed(structures):
+    add_errors_semantics = []
+    add_message_error = []
+    for s in structures:
         for entry_value in s:
             input_entry += f'{entry_value} '
+        parse = parser.parse(input_entry)
+        input_entry = ""
+        if type(parse) is tuple and len(errors) == 0:
+            error_value = None, None
+            add_errors_semantics.extend(variables_err)
+            add_errors_semantics.extend(conditional_err)
+            add_message_error.append((f'CADENA VALIDA \n', add_errors_semantics[:]))
+        elif parse is tuple and len(errors) > 0:
+            add_message_error.append((f'CADENA INVALIDA {errors[0][1]} \n', []))
+        elif parse is None and len(errors) > 0:
+            add_message_error.append((f'CADENA INVALIDA {errors[0][1]} \n', []))
+        else:
+            add_message_error.append((f'CADENA INVALIDA {error_value[1]} \n', []))
+            error_value = None, None
 
-    add_errors_semantics = []
-
-    validated_entry = parser.parse(input_entry)
-    if type(validated_entry) is tuple and len(errors) == 0:
-        error_value = None, None
-        print("Variables valor final -> ", variables)
-        [print("Condicionales valor final -> ", c) for c in conditional_result]
-        add_errors_semantics.extend(variables_err)
-        add_errors_semantics.extend(conditional_err)
-        return f'CADENA VALIDA \n', add_errors_semantics
-    elif validated_entry is tuple and len(errors) > 0:
-        return f'CADENA INVALIDA {errors[0][1]} \n', []
-    elif validated_entry is None and len(errors) > 0:
-        return f'CADENA INVALIDA {errors[0][1]} \n', []
-    else:
-        value_error = f'CADENA INVALIDA {error_value[1]} \n'
-        error_value = None, None
-        return value_error, []
+    return add_message_error
+    # add_errors_semantics = []
+    #
+    # validated_entry = parser.parse(input_entry)
+    # if type(validated_entry) is tuple and len(errors) == 0:
+    #     error_value = None, None
+    #     # print("Variables valor final -> ", variables)
+    #     # [print("Condicionales valor final -> ", c) for c in conditional_result]
+    #     add_errors_semantics.extend(variables_err)
+    #     add_errors_semantics.extend(conditional_err)
+    #     return f'CADENA VALIDA \n', add_errors_semantics
+    # elif validated_entry is tuple and len(errors) > 0:
+    #     return f'CADENA INVALIDA {errors[0][1]} \n', []
+    # elif validated_entry is None and len(errors) > 0:
+    #     return f'CADENA INVALIDA {errors[0][1]} \n', []
+    # else:
+    #     value_error = f'CADENA INVALIDA {error_value[1]} \n'
+    #     error_value = None, None
+    #     return value_error, []

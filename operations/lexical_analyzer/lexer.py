@@ -8,7 +8,7 @@ class Lexer:
         self.reserved_words = {
             'INTEGER_TYPE': 'Ent',
             'BOOLEAN_TYPE': 'Bool',
-            'DECIMAL_TYPE': 'Dec',
+            'DECIMAL_TYPE': 'Dcm',
             'STRING_TYPE': 'Cdn',
             'TRUE_VALUE': 'True',
             'FALSE_VALUE': 'False',

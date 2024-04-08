@@ -56,10 +56,23 @@ def insert_syntactic_result_text():
         t, lexeme = token
         format_token = f'TOKEN: {t} - LEXEMA: {lexeme}'
     result_syntactic = analyze_syntax(result)
-    print(result_syntactic)
-    result_show.insert(0, result_syntactic[0])
+    message_syntactic = ""
+    for (message, _) in result_syntactic:
+        if message.startswith("CADENA INVALIDA"):
+            message_syntactic = message
+            break
+        else:
+            message_syntactic = message
+    list_unique_error = []
+    for i, (_, rs) in enumerate(result_syntactic):
+        if (len(result_syntactic) - 1) == i:
+            for errors in rs:
+                err = errors + "\n"
+                if err not in list_unique_error:
+                    list_unique_error.append(err)
+    result_show.insert(0, message_syntactic)
     entry_2.insert(END, "\n".join(map(str, result_show)))
-    entry_3.insert(END, "\n".join([elem for elem in result_syntactic[1] if elem and isinstance(elem, str)]))
+    entry_3.insert(END, "\n".join(map(str, list_unique_error)))
     entry_2.config(state=DISABLED)
     entry_3.config(state=DISABLED)
 
