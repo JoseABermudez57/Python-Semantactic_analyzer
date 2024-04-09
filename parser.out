@@ -1,0 +1,2495 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> PROGRAM
+Rule 1     PROGRAM -> BLOCK_CODE
+Rule 2     BLOCK_CODE -> GV
+Rule 3     BLOCK_CODE -> GC
+Rule 4     BLOCK_CODE -> GF
+Rule 5     BLOCK_CODE -> GCF
+Rule 6     BLOCK_CODE -> EMPTY
+Rule 7     C -> GV
+Rule 8     C -> GC
+Rule 9     C -> GCF
+Rule 10    C -> EMPTY
+Rule 11    GV -> TD V I VA BLOCK_CODE
+Rule 12    GV -> TD V BLOCK_CODE
+Rule 13    GV -> EMPTY
+Rule 14    TD -> INTEGER_TYPE
+Rule 15    TD -> BOOLEAN_TYPE
+Rule 16    TD -> DECIMAL_TYPE
+Rule 17    TD -> STRING_TYPE
+Rule 18    V -> VARIABLE
+Rule 19    I -> ASSIGNMENT
+Rule 20    VA -> NUMBER
+Rule 21    VA -> NUMBER DOT NUMBER
+Rule 22    VA -> TRUE_VALUE
+Rule 23    VA -> FALSE_VALUE
+Rule 24    VA -> QUOTATION_MARKS V QUOTATION_MARKS
+Rule 25    GC -> CN PA CD PC MY C MN BLOCK_CODE
+Rule 26    GC -> CN PA CD PC MY MN BLOCK_CODE
+Rule 27    GC -> EMPTY
+Rule 28    CN -> IF
+Rule 29    CD -> V S V
+Rule 30    CD -> V S VA
+Rule 31    CD -> VA S V
+Rule 32    CD -> VA S VA
+Rule 33    S -> EQUAL
+Rule 34    S -> GREATER_THAN
+Rule 35    S -> LESS_THAN
+Rule 36    S -> GREATER_OR_EQUAL
+Rule 37    S -> LESS_OR_EQUAL
+Rule 38    S -> NOT_EQUAL
+Rule 39    GF -> TD V ME PR MA MY C RT MN BLOCK_CODE
+Rule 40    GF -> V ME PR MA MY C MN BLOCK_CODE
+Rule 41    GF -> TD V ME PR MA MY RT MN BLOCK_CODE
+Rule 42    GF -> V ME PR MA MY MN BLOCK_CODE
+Rule 43    GF -> TD V ME MA MY C RT MN BLOCK_CODE
+Rule 44    GF -> V ME MA MY C MN BLOCK_CODE
+Rule 45    GF -> TD V ME MA MY RT MN BLOCK_CODE
+Rule 46    GF -> V ME MA MY MN BLOCK_CODE
+Rule 47    GF -> EMPTY
+Rule 48    PR -> V
+Rule 49    ME -> LESS_THAN
+Rule 50    MA -> GREATER_THAN
+Rule 51    RT -> RETURN V
+Rule 52    GCF -> F PA CDF PC MY C MN BLOCK_CODE
+Rule 53    GCF -> F PA CDF PC MY MN BLOCK_CODE
+Rule 54    GCF -> EMPTY
+Rule 55    F -> FOR
+Rule 56    CDF -> NUMBER SE NUMBER SE O
+Rule 57    SE -> PIPE
+Rule 58    O -> SUBTRACTION
+Rule 59    O -> ADDITION
+Rule 60    PA -> PARENTHESIS_OPEN
+Rule 61    PC -> PARENTHESIS_CLOSE
+Rule 62    MY -> OPEN_BODY
+Rule 63    MN -> LESS_OR_EQUAL
+Rule 64    EMPTY -> <empty>
+
+Terminals, with rules where they appear
+
+ADDITION             : 59
+ASSIGNMENT           : 19
+BOOLEAN_TYPE         : 15
+DECIMAL_TYPE         : 16
+DOT                  : 21
+EQUAL                : 33
+FALSE_VALUE          : 23
+FOR                  : 55
+GREATER_OR_EQUAL     : 36
+GREATER_THAN         : 34 50
+IF                   : 28
+INTEGER_TYPE         : 14
+LESS_OR_EQUAL        : 37 63
+LESS_THAN            : 35 49
+NOT_EQUAL            : 38
+NUMBER               : 20 21 21 56 56
+OPEN_BODY            : 62
+PARENTHESIS_CLOSE    : 61
+PARENTHESIS_OPEN     : 60
+PIPE                 : 57
+QUOTATION_MARKS      : 24 24
+RETURN               : 51
+STRING_TYPE          : 17
+SUBTRACTION          : 58
+TRUE_VALUE           : 22
+VARIABLE             : 18
+error                : 
+
+Nonterminals, with rules where they appear
+
+BLOCK_CODE           : 1 11 12 25 26 39 40 41 42 43 44 45 46 52 53
+C                    : 25 39 40 43 44 52
+CD                   : 25 26
+CDF                  : 52 53
+CN                   : 25 26
+EMPTY                : 6 10 13 27 47 54
+F                    : 52 53
+GC                   : 3 8
+GCF                  : 5 9
+GF                   : 4
+GV                   : 2 7
+I                    : 11
+MA                   : 39 40 41 42 43 44 45 46
+ME                   : 39 40 41 42 43 44 45 46
+MN                   : 25 26 39 40 41 42 43 44 45 46 52 53
+MY                   : 25 26 39 40 41 42 43 44 45 46 52 53
+O                    : 56
+PA                   : 25 26 52 53
+PC                   : 25 26 52 53
+PR                   : 39 40 41 42
+PROGRAM              : 0
+RT                   : 39 41 43 45
+S                    : 29 30 31 32
+SE                   : 56 56
+TD                   : 11 12 39 41 43 45
+V                    : 11 12 24 29 29 30 31 39 40 41 42 43 44 45 46 48 51
+VA                   : 11 30 31 32 32
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . PROGRAM
+    (1) PROGRAM -> . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    PROGRAM                        shift and go to state 1
+    BLOCK_CODE                     shift and go to state 2
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 1
+
+    (0) S' -> PROGRAM .
+
+
+
+state 2
+
+    (1) PROGRAM -> BLOCK_CODE .
+
+    $end            reduce using rule 1 (PROGRAM -> BLOCK_CODE .)
+
+
+state 3
+
+    (2) BLOCK_CODE -> GV .
+
+    $end            reduce using rule 2 (BLOCK_CODE -> GV .)
+    LESS_OR_EQUAL   reduce using rule 2 (BLOCK_CODE -> GV .)
+    RETURN          reduce using rule 2 (BLOCK_CODE -> GV .)
+
+
+state 4
+
+    (3) BLOCK_CODE -> GC .
+
+    $end            reduce using rule 3 (BLOCK_CODE -> GC .)
+    LESS_OR_EQUAL   reduce using rule 3 (BLOCK_CODE -> GC .)
+    RETURN          reduce using rule 3 (BLOCK_CODE -> GC .)
+
+
+state 5
+
+    (4) BLOCK_CODE -> GF .
+
+    $end            reduce using rule 4 (BLOCK_CODE -> GF .)
+    LESS_OR_EQUAL   reduce using rule 4 (BLOCK_CODE -> GF .)
+    RETURN          reduce using rule 4 (BLOCK_CODE -> GF .)
+
+
+state 6
+
+    (5) BLOCK_CODE -> GCF .
+
+    $end            reduce using rule 5 (BLOCK_CODE -> GCF .)
+    LESS_OR_EQUAL   reduce using rule 5 (BLOCK_CODE -> GCF .)
+    RETURN          reduce using rule 5 (BLOCK_CODE -> GCF .)
+
+
+state 7
+
+    (6) BLOCK_CODE -> EMPTY .
+    (13) GV -> EMPTY .
+    (27) GC -> EMPTY .
+    (47) GF -> EMPTY .
+    (54) GCF -> EMPTY .
+
+  ! reduce/reduce conflict for $end resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for LESS_OR_EQUAL resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for RETURN resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for $end resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for LESS_OR_EQUAL resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for RETURN resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for $end resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for LESS_OR_EQUAL resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for RETURN resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for $end resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for LESS_OR_EQUAL resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+  ! reduce/reduce conflict for RETURN resolved using rule 6 (BLOCK_CODE -> EMPTY .)
+    $end            reduce using rule 6 (BLOCK_CODE -> EMPTY .)
+    LESS_OR_EQUAL   reduce using rule 6 (BLOCK_CODE -> EMPTY .)
+    RETURN          reduce using rule 6 (BLOCK_CODE -> EMPTY .)
+
+  ! $end            [ reduce using rule 13 (GV -> EMPTY .) ]
+  ! LESS_OR_EQUAL   [ reduce using rule 13 (GV -> EMPTY .) ]
+  ! RETURN          [ reduce using rule 13 (GV -> EMPTY .) ]
+  ! $end            [ reduce using rule 27 (GC -> EMPTY .) ]
+  ! LESS_OR_EQUAL   [ reduce using rule 27 (GC -> EMPTY .) ]
+  ! RETURN          [ reduce using rule 27 (GC -> EMPTY .) ]
+  ! $end            [ reduce using rule 47 (GF -> EMPTY .) ]
+  ! LESS_OR_EQUAL   [ reduce using rule 47 (GF -> EMPTY .) ]
+  ! RETURN          [ reduce using rule 47 (GF -> EMPTY .) ]
+  ! $end            [ reduce using rule 54 (GCF -> EMPTY .) ]
+  ! LESS_OR_EQUAL   [ reduce using rule 54 (GCF -> EMPTY .) ]
+  ! RETURN          [ reduce using rule 54 (GCF -> EMPTY .) ]
+
+
+state 8
+
+    (11) GV -> TD . V I VA BLOCK_CODE
+    (12) GV -> TD . V BLOCK_CODE
+    (39) GF -> TD . V ME PR MA MY C RT MN BLOCK_CODE
+    (41) GF -> TD . V ME PR MA MY RT MN BLOCK_CODE
+    (43) GF -> TD . V ME MA MY C RT MN BLOCK_CODE
+    (45) GF -> TD . V ME MA MY RT MN BLOCK_CODE
+    (18) V -> . VARIABLE
+
+    VARIABLE        shift and go to state 17
+
+    V                              shift and go to state 19
+
+state 9
+
+    (40) GF -> V . ME PR MA MY C MN BLOCK_CODE
+    (42) GF -> V . ME PR MA MY MN BLOCK_CODE
+    (44) GF -> V . ME MA MY C MN BLOCK_CODE
+    (46) GF -> V . ME MA MY MN BLOCK_CODE
+    (49) ME -> . LESS_THAN
+
+    LESS_THAN       shift and go to state 21
+
+    ME                             shift and go to state 20
+
+state 10
+
+    (25) GC -> CN . PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> CN . PA CD PC MY MN BLOCK_CODE
+    (60) PA -> . PARENTHESIS_OPEN
+
+    PARENTHESIS_OPEN shift and go to state 23
+
+    PA                             shift and go to state 22
+
+state 11
+
+    (52) GCF -> F . PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> F . PA CDF PC MY MN BLOCK_CODE
+    (60) PA -> . PARENTHESIS_OPEN
+
+    PARENTHESIS_OPEN shift and go to state 23
+
+    PA                             shift and go to state 24
+
+state 12
+
+    (14) TD -> INTEGER_TYPE .
+
+    VARIABLE        reduce using rule 14 (TD -> INTEGER_TYPE .)
+
+
+state 13
+
+    (15) TD -> BOOLEAN_TYPE .
+
+    VARIABLE        reduce using rule 15 (TD -> BOOLEAN_TYPE .)
+
+
+state 14
+
+    (16) TD -> DECIMAL_TYPE .
+
+    VARIABLE        reduce using rule 16 (TD -> DECIMAL_TYPE .)
+
+
+state 15
+
+    (17) TD -> STRING_TYPE .
+
+    VARIABLE        reduce using rule 17 (TD -> STRING_TYPE .)
+
+
+state 16
+
+    (28) CN -> IF .
+
+    PARENTHESIS_OPEN reduce using rule 28 (CN -> IF .)
+
+
+state 17
+
+    (18) V -> VARIABLE .
+
+    LESS_THAN       reduce using rule 18 (V -> VARIABLE .)
+    ASSIGNMENT      reduce using rule 18 (V -> VARIABLE .)
+    INTEGER_TYPE    reduce using rule 18 (V -> VARIABLE .)
+    BOOLEAN_TYPE    reduce using rule 18 (V -> VARIABLE .)
+    DECIMAL_TYPE    reduce using rule 18 (V -> VARIABLE .)
+    STRING_TYPE     reduce using rule 18 (V -> VARIABLE .)
+    IF              reduce using rule 18 (V -> VARIABLE .)
+    VARIABLE        reduce using rule 18 (V -> VARIABLE .)
+    FOR             reduce using rule 18 (V -> VARIABLE .)
+    $end            reduce using rule 18 (V -> VARIABLE .)
+    LESS_OR_EQUAL   reduce using rule 18 (V -> VARIABLE .)
+    RETURN          reduce using rule 18 (V -> VARIABLE .)
+    GREATER_THAN    reduce using rule 18 (V -> VARIABLE .)
+    EQUAL           reduce using rule 18 (V -> VARIABLE .)
+    GREATER_OR_EQUAL reduce using rule 18 (V -> VARIABLE .)
+    NOT_EQUAL       reduce using rule 18 (V -> VARIABLE .)
+    QUOTATION_MARKS reduce using rule 18 (V -> VARIABLE .)
+    PARENTHESIS_CLOSE reduce using rule 18 (V -> VARIABLE .)
+
+
+state 18
+
+    (55) F -> FOR .
+
+    PARENTHESIS_OPEN reduce using rule 55 (F -> FOR .)
+
+
+state 19
+
+    (11) GV -> TD V . I VA BLOCK_CODE
+    (12) GV -> TD V . BLOCK_CODE
+    (39) GF -> TD V . ME PR MA MY C RT MN BLOCK_CODE
+    (41) GF -> TD V . ME PR MA MY RT MN BLOCK_CODE
+    (43) GF -> TD V . ME MA MY C RT MN BLOCK_CODE
+    (45) GF -> TD V . ME MA MY RT MN BLOCK_CODE
+    (19) I -> . ASSIGNMENT
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (49) ME -> . LESS_THAN
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    ASSIGNMENT      shift and go to state 28
+    LESS_THAN       shift and go to state 21
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    I                              shift and go to state 25
+    BLOCK_CODE                     shift and go to state 26
+    ME                             shift and go to state 27
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 20
+
+    (40) GF -> V ME . PR MA MY C MN BLOCK_CODE
+    (42) GF -> V ME . PR MA MY MN BLOCK_CODE
+    (44) GF -> V ME . MA MY C MN BLOCK_CODE
+    (46) GF -> V ME . MA MY MN BLOCK_CODE
+    (48) PR -> . V
+    (50) MA -> . GREATER_THAN
+    (18) V -> . VARIABLE
+
+    GREATER_THAN    shift and go to state 32
+    VARIABLE        shift and go to state 17
+
+    V                              shift and go to state 29
+    PR                             shift and go to state 30
+    MA                             shift and go to state 31
+
+state 21
+
+    (49) ME -> LESS_THAN .
+
+    GREATER_THAN    reduce using rule 49 (ME -> LESS_THAN .)
+    VARIABLE        reduce using rule 49 (ME -> LESS_THAN .)
+
+
+state 22
+
+    (25) GC -> CN PA . CD PC MY C MN BLOCK_CODE
+    (26) GC -> CN PA . CD PC MY MN BLOCK_CODE
+    (29) CD -> . V S V
+    (30) CD -> . V S VA
+    (31) CD -> . VA S V
+    (32) CD -> . VA S VA
+    (18) V -> . VARIABLE
+    (20) VA -> . NUMBER
+    (21) VA -> . NUMBER DOT NUMBER
+    (22) VA -> . TRUE_VALUE
+    (23) VA -> . FALSE_VALUE
+    (24) VA -> . QUOTATION_MARKS V QUOTATION_MARKS
+
+    VARIABLE        shift and go to state 17
+    NUMBER          shift and go to state 36
+    TRUE_VALUE      shift and go to state 37
+    FALSE_VALUE     shift and go to state 38
+    QUOTATION_MARKS shift and go to state 39
+
+    CD                             shift and go to state 33
+    V                              shift and go to state 34
+    VA                             shift and go to state 35
+
+state 23
+
+    (60) PA -> PARENTHESIS_OPEN .
+
+    VARIABLE        reduce using rule 60 (PA -> PARENTHESIS_OPEN .)
+    NUMBER          reduce using rule 60 (PA -> PARENTHESIS_OPEN .)
+    TRUE_VALUE      reduce using rule 60 (PA -> PARENTHESIS_OPEN .)
+    FALSE_VALUE     reduce using rule 60 (PA -> PARENTHESIS_OPEN .)
+    QUOTATION_MARKS reduce using rule 60 (PA -> PARENTHESIS_OPEN .)
+
+
+state 24
+
+    (52) GCF -> F PA . CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> F PA . CDF PC MY MN BLOCK_CODE
+    (56) CDF -> . NUMBER SE NUMBER SE O
+
+    NUMBER          shift and go to state 41
+
+    CDF                            shift and go to state 40
+
+state 25
+
+    (11) GV -> TD V I . VA BLOCK_CODE
+    (20) VA -> . NUMBER
+    (21) VA -> . NUMBER DOT NUMBER
+    (22) VA -> . TRUE_VALUE
+    (23) VA -> . FALSE_VALUE
+    (24) VA -> . QUOTATION_MARKS V QUOTATION_MARKS
+
+    NUMBER          shift and go to state 36
+    TRUE_VALUE      shift and go to state 37
+    FALSE_VALUE     shift and go to state 38
+    QUOTATION_MARKS shift and go to state 39
+
+    VA                             shift and go to state 42
+
+state 26
+
+    (12) GV -> TD V BLOCK_CODE .
+
+    $end            reduce using rule 12 (GV -> TD V BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 12 (GV -> TD V BLOCK_CODE .)
+    RETURN          reduce using rule 12 (GV -> TD V BLOCK_CODE .)
+
+
+state 27
+
+    (39) GF -> TD V ME . PR MA MY C RT MN BLOCK_CODE
+    (41) GF -> TD V ME . PR MA MY RT MN BLOCK_CODE
+    (43) GF -> TD V ME . MA MY C RT MN BLOCK_CODE
+    (45) GF -> TD V ME . MA MY RT MN BLOCK_CODE
+    (48) PR -> . V
+    (50) MA -> . GREATER_THAN
+    (18) V -> . VARIABLE
+
+    GREATER_THAN    shift and go to state 32
+    VARIABLE        shift and go to state 17
+
+    V                              shift and go to state 29
+    PR                             shift and go to state 43
+    MA                             shift and go to state 44
+
+state 28
+
+    (19) I -> ASSIGNMENT .
+
+    NUMBER          reduce using rule 19 (I -> ASSIGNMENT .)
+    TRUE_VALUE      reduce using rule 19 (I -> ASSIGNMENT .)
+    FALSE_VALUE     reduce using rule 19 (I -> ASSIGNMENT .)
+    QUOTATION_MARKS reduce using rule 19 (I -> ASSIGNMENT .)
+
+
+state 29
+
+    (48) PR -> V .
+
+    GREATER_THAN    reduce using rule 48 (PR -> V .)
+
+
+state 30
+
+    (40) GF -> V ME PR . MA MY C MN BLOCK_CODE
+    (42) GF -> V ME PR . MA MY MN BLOCK_CODE
+    (50) MA -> . GREATER_THAN
+
+    GREATER_THAN    shift and go to state 32
+
+    MA                             shift and go to state 45
+
+state 31
+
+    (44) GF -> V ME MA . MY C MN BLOCK_CODE
+    (46) GF -> V ME MA . MY MN BLOCK_CODE
+    (62) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 47
+
+    MY                             shift and go to state 46
+
+state 32
+
+    (50) MA -> GREATER_THAN .
+
+    OPEN_BODY       reduce using rule 50 (MA -> GREATER_THAN .)
+
+
+state 33
+
+    (25) GC -> CN PA CD . PC MY C MN BLOCK_CODE
+    (26) GC -> CN PA CD . PC MY MN BLOCK_CODE
+    (61) PC -> . PARENTHESIS_CLOSE
+
+    PARENTHESIS_CLOSE shift and go to state 49
+
+    PC                             shift and go to state 48
+
+state 34
+
+    (29) CD -> V . S V
+    (30) CD -> V . S VA
+    (33) S -> . EQUAL
+    (34) S -> . GREATER_THAN
+    (35) S -> . LESS_THAN
+    (36) S -> . GREATER_OR_EQUAL
+    (37) S -> . LESS_OR_EQUAL
+    (38) S -> . NOT_EQUAL
+
+    EQUAL           shift and go to state 51
+    GREATER_THAN    shift and go to state 52
+    LESS_THAN       shift and go to state 53
+    GREATER_OR_EQUAL shift and go to state 54
+    LESS_OR_EQUAL   shift and go to state 55
+    NOT_EQUAL       shift and go to state 56
+
+    S                              shift and go to state 50
+
+state 35
+
+    (31) CD -> VA . S V
+    (32) CD -> VA . S VA
+    (33) S -> . EQUAL
+    (34) S -> . GREATER_THAN
+    (35) S -> . LESS_THAN
+    (36) S -> . GREATER_OR_EQUAL
+    (37) S -> . LESS_OR_EQUAL
+    (38) S -> . NOT_EQUAL
+
+    EQUAL           shift and go to state 51
+    GREATER_THAN    shift and go to state 52
+    LESS_THAN       shift and go to state 53
+    GREATER_OR_EQUAL shift and go to state 54
+    LESS_OR_EQUAL   shift and go to state 55
+    NOT_EQUAL       shift and go to state 56
+
+    S                              shift and go to state 57
+
+state 36
+
+    (20) VA -> NUMBER .
+    (21) VA -> NUMBER . DOT NUMBER
+
+    EQUAL           reduce using rule 20 (VA -> NUMBER .)
+    GREATER_THAN    reduce using rule 20 (VA -> NUMBER .)
+    LESS_THAN       reduce using rule 20 (VA -> NUMBER .)
+    GREATER_OR_EQUAL reduce using rule 20 (VA -> NUMBER .)
+    LESS_OR_EQUAL   reduce using rule 20 (VA -> NUMBER .)
+    NOT_EQUAL       reduce using rule 20 (VA -> NUMBER .)
+    INTEGER_TYPE    reduce using rule 20 (VA -> NUMBER .)
+    BOOLEAN_TYPE    reduce using rule 20 (VA -> NUMBER .)
+    DECIMAL_TYPE    reduce using rule 20 (VA -> NUMBER .)
+    STRING_TYPE     reduce using rule 20 (VA -> NUMBER .)
+    IF              reduce using rule 20 (VA -> NUMBER .)
+    VARIABLE        reduce using rule 20 (VA -> NUMBER .)
+    FOR             reduce using rule 20 (VA -> NUMBER .)
+    $end            reduce using rule 20 (VA -> NUMBER .)
+    RETURN          reduce using rule 20 (VA -> NUMBER .)
+    PARENTHESIS_CLOSE reduce using rule 20 (VA -> NUMBER .)
+    DOT             shift and go to state 58
+
+
+state 37
+
+    (22) VA -> TRUE_VALUE .
+
+    EQUAL           reduce using rule 22 (VA -> TRUE_VALUE .)
+    GREATER_THAN    reduce using rule 22 (VA -> TRUE_VALUE .)
+    LESS_THAN       reduce using rule 22 (VA -> TRUE_VALUE .)
+    GREATER_OR_EQUAL reduce using rule 22 (VA -> TRUE_VALUE .)
+    LESS_OR_EQUAL   reduce using rule 22 (VA -> TRUE_VALUE .)
+    NOT_EQUAL       reduce using rule 22 (VA -> TRUE_VALUE .)
+    INTEGER_TYPE    reduce using rule 22 (VA -> TRUE_VALUE .)
+    BOOLEAN_TYPE    reduce using rule 22 (VA -> TRUE_VALUE .)
+    DECIMAL_TYPE    reduce using rule 22 (VA -> TRUE_VALUE .)
+    STRING_TYPE     reduce using rule 22 (VA -> TRUE_VALUE .)
+    IF              reduce using rule 22 (VA -> TRUE_VALUE .)
+    VARIABLE        reduce using rule 22 (VA -> TRUE_VALUE .)
+    FOR             reduce using rule 22 (VA -> TRUE_VALUE .)
+    $end            reduce using rule 22 (VA -> TRUE_VALUE .)
+    RETURN          reduce using rule 22 (VA -> TRUE_VALUE .)
+    PARENTHESIS_CLOSE reduce using rule 22 (VA -> TRUE_VALUE .)
+
+
+state 38
+
+    (23) VA -> FALSE_VALUE .
+
+    EQUAL           reduce using rule 23 (VA -> FALSE_VALUE .)
+    GREATER_THAN    reduce using rule 23 (VA -> FALSE_VALUE .)
+    LESS_THAN       reduce using rule 23 (VA -> FALSE_VALUE .)
+    GREATER_OR_EQUAL reduce using rule 23 (VA -> FALSE_VALUE .)
+    LESS_OR_EQUAL   reduce using rule 23 (VA -> FALSE_VALUE .)
+    NOT_EQUAL       reduce using rule 23 (VA -> FALSE_VALUE .)
+    INTEGER_TYPE    reduce using rule 23 (VA -> FALSE_VALUE .)
+    BOOLEAN_TYPE    reduce using rule 23 (VA -> FALSE_VALUE .)
+    DECIMAL_TYPE    reduce using rule 23 (VA -> FALSE_VALUE .)
+    STRING_TYPE     reduce using rule 23 (VA -> FALSE_VALUE .)
+    IF              reduce using rule 23 (VA -> FALSE_VALUE .)
+    VARIABLE        reduce using rule 23 (VA -> FALSE_VALUE .)
+    FOR             reduce using rule 23 (VA -> FALSE_VALUE .)
+    $end            reduce using rule 23 (VA -> FALSE_VALUE .)
+    RETURN          reduce using rule 23 (VA -> FALSE_VALUE .)
+    PARENTHESIS_CLOSE reduce using rule 23 (VA -> FALSE_VALUE .)
+
+
+state 39
+
+    (24) VA -> QUOTATION_MARKS . V QUOTATION_MARKS
+    (18) V -> . VARIABLE
+
+    VARIABLE        shift and go to state 17
+
+    V                              shift and go to state 59
+
+state 40
+
+    (52) GCF -> F PA CDF . PC MY C MN BLOCK_CODE
+    (53) GCF -> F PA CDF . PC MY MN BLOCK_CODE
+    (61) PC -> . PARENTHESIS_CLOSE
+
+    PARENTHESIS_CLOSE shift and go to state 49
+
+    PC                             shift and go to state 60
+
+state 41
+
+    (56) CDF -> NUMBER . SE NUMBER SE O
+    (57) SE -> . PIPE
+
+    PIPE            shift and go to state 62
+
+    SE                             shift and go to state 61
+
+state 42
+
+    (11) GV -> TD V I VA . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 63
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 43
+
+    (39) GF -> TD V ME PR . MA MY C RT MN BLOCK_CODE
+    (41) GF -> TD V ME PR . MA MY RT MN BLOCK_CODE
+    (50) MA -> . GREATER_THAN
+
+    GREATER_THAN    shift and go to state 32
+
+    MA                             shift and go to state 64
+
+state 44
+
+    (43) GF -> TD V ME MA . MY C RT MN BLOCK_CODE
+    (45) GF -> TD V ME MA . MY RT MN BLOCK_CODE
+    (62) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 47
+
+    MY                             shift and go to state 65
+
+state 45
+
+    (40) GF -> V ME PR MA . MY C MN BLOCK_CODE
+    (42) GF -> V ME PR MA . MY MN BLOCK_CODE
+    (62) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 47
+
+    MY                             shift and go to state 66
+
+state 46
+
+    (44) GF -> V ME MA MY . C MN BLOCK_CODE
+    (46) GF -> V ME MA MY . MN BLOCK_CODE
+    (7) C -> . GV
+    (8) C -> . GC
+    (9) C -> . GCF
+    (10) C -> . EMPTY
+    (63) MN -> . LESS_OR_EQUAL
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (55) F -> . FOR
+
+  ! shift/reduce conflict for LESS_OR_EQUAL resolved as shift
+    LESS_OR_EQUAL   shift and go to state 73
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    FOR             shift and go to state 18
+
+  ! LESS_OR_EQUAL   [ reduce using rule 64 (EMPTY -> .) ]
+
+    C                              shift and go to state 67
+    MN                             shift and go to state 68
+    GV                             shift and go to state 69
+    GC                             shift and go to state 70
+    GCF                            shift and go to state 71
+    EMPTY                          shift and go to state 72
+    TD                             shift and go to state 74
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 47
+
+    (62) MY -> OPEN_BODY .
+
+    LESS_OR_EQUAL   reduce using rule 62 (MY -> OPEN_BODY .)
+    INTEGER_TYPE    reduce using rule 62 (MY -> OPEN_BODY .)
+    BOOLEAN_TYPE    reduce using rule 62 (MY -> OPEN_BODY .)
+    DECIMAL_TYPE    reduce using rule 62 (MY -> OPEN_BODY .)
+    STRING_TYPE     reduce using rule 62 (MY -> OPEN_BODY .)
+    IF              reduce using rule 62 (MY -> OPEN_BODY .)
+    FOR             reduce using rule 62 (MY -> OPEN_BODY .)
+    RETURN          reduce using rule 62 (MY -> OPEN_BODY .)
+
+
+state 48
+
+    (25) GC -> CN PA CD PC . MY C MN BLOCK_CODE
+    (26) GC -> CN PA CD PC . MY MN BLOCK_CODE
+    (62) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 47
+
+    MY                             shift and go to state 75
+
+state 49
+
+    (61) PC -> PARENTHESIS_CLOSE .
+
+    OPEN_BODY       reduce using rule 61 (PC -> PARENTHESIS_CLOSE .)
+
+
+state 50
+
+    (29) CD -> V S . V
+    (30) CD -> V S . VA
+    (18) V -> . VARIABLE
+    (20) VA -> . NUMBER
+    (21) VA -> . NUMBER DOT NUMBER
+    (22) VA -> . TRUE_VALUE
+    (23) VA -> . FALSE_VALUE
+    (24) VA -> . QUOTATION_MARKS V QUOTATION_MARKS
+
+    VARIABLE        shift and go to state 17
+    NUMBER          shift and go to state 36
+    TRUE_VALUE      shift and go to state 37
+    FALSE_VALUE     shift and go to state 38
+    QUOTATION_MARKS shift and go to state 39
+
+    V                              shift and go to state 76
+    VA                             shift and go to state 77
+
+state 51
+
+    (33) S -> EQUAL .
+
+    VARIABLE        reduce using rule 33 (S -> EQUAL .)
+    NUMBER          reduce using rule 33 (S -> EQUAL .)
+    TRUE_VALUE      reduce using rule 33 (S -> EQUAL .)
+    FALSE_VALUE     reduce using rule 33 (S -> EQUAL .)
+    QUOTATION_MARKS reduce using rule 33 (S -> EQUAL .)
+
+
+state 52
+
+    (34) S -> GREATER_THAN .
+
+    VARIABLE        reduce using rule 34 (S -> GREATER_THAN .)
+    NUMBER          reduce using rule 34 (S -> GREATER_THAN .)
+    TRUE_VALUE      reduce using rule 34 (S -> GREATER_THAN .)
+    FALSE_VALUE     reduce using rule 34 (S -> GREATER_THAN .)
+    QUOTATION_MARKS reduce using rule 34 (S -> GREATER_THAN .)
+
+
+state 53
+
+    (35) S -> LESS_THAN .
+
+    VARIABLE        reduce using rule 35 (S -> LESS_THAN .)
+    NUMBER          reduce using rule 35 (S -> LESS_THAN .)
+    TRUE_VALUE      reduce using rule 35 (S -> LESS_THAN .)
+    FALSE_VALUE     reduce using rule 35 (S -> LESS_THAN .)
+    QUOTATION_MARKS reduce using rule 35 (S -> LESS_THAN .)
+
+
+state 54
+
+    (36) S -> GREATER_OR_EQUAL .
+
+    VARIABLE        reduce using rule 36 (S -> GREATER_OR_EQUAL .)
+    NUMBER          reduce using rule 36 (S -> GREATER_OR_EQUAL .)
+    TRUE_VALUE      reduce using rule 36 (S -> GREATER_OR_EQUAL .)
+    FALSE_VALUE     reduce using rule 36 (S -> GREATER_OR_EQUAL .)
+    QUOTATION_MARKS reduce using rule 36 (S -> GREATER_OR_EQUAL .)
+
+
+state 55
+
+    (37) S -> LESS_OR_EQUAL .
+
+    VARIABLE        reduce using rule 37 (S -> LESS_OR_EQUAL .)
+    NUMBER          reduce using rule 37 (S -> LESS_OR_EQUAL .)
+    TRUE_VALUE      reduce using rule 37 (S -> LESS_OR_EQUAL .)
+    FALSE_VALUE     reduce using rule 37 (S -> LESS_OR_EQUAL .)
+    QUOTATION_MARKS reduce using rule 37 (S -> LESS_OR_EQUAL .)
+
+
+state 56
+
+    (38) S -> NOT_EQUAL .
+
+    VARIABLE        reduce using rule 38 (S -> NOT_EQUAL .)
+    NUMBER          reduce using rule 38 (S -> NOT_EQUAL .)
+    TRUE_VALUE      reduce using rule 38 (S -> NOT_EQUAL .)
+    FALSE_VALUE     reduce using rule 38 (S -> NOT_EQUAL .)
+    QUOTATION_MARKS reduce using rule 38 (S -> NOT_EQUAL .)
+
+
+state 57
+
+    (31) CD -> VA S . V
+    (32) CD -> VA S . VA
+    (18) V -> . VARIABLE
+    (20) VA -> . NUMBER
+    (21) VA -> . NUMBER DOT NUMBER
+    (22) VA -> . TRUE_VALUE
+    (23) VA -> . FALSE_VALUE
+    (24) VA -> . QUOTATION_MARKS V QUOTATION_MARKS
+
+    VARIABLE        shift and go to state 17
+    NUMBER          shift and go to state 36
+    TRUE_VALUE      shift and go to state 37
+    FALSE_VALUE     shift and go to state 38
+    QUOTATION_MARKS shift and go to state 39
+
+    VA                             shift and go to state 78
+    V                              shift and go to state 79
+
+state 58
+
+    (21) VA -> NUMBER DOT . NUMBER
+
+    NUMBER          shift and go to state 80
+
+
+state 59
+
+    (24) VA -> QUOTATION_MARKS V . QUOTATION_MARKS
+
+    QUOTATION_MARKS shift and go to state 81
+
+
+state 60
+
+    (52) GCF -> F PA CDF PC . MY C MN BLOCK_CODE
+    (53) GCF -> F PA CDF PC . MY MN BLOCK_CODE
+    (62) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 47
+
+    MY                             shift and go to state 82
+
+state 61
+
+    (56) CDF -> NUMBER SE . NUMBER SE O
+
+    NUMBER          shift and go to state 83
+
+
+state 62
+
+    (57) SE -> PIPE .
+
+    NUMBER          reduce using rule 57 (SE -> PIPE .)
+    SUBTRACTION     reduce using rule 57 (SE -> PIPE .)
+    ADDITION        reduce using rule 57 (SE -> PIPE .)
+
+
+state 63
+
+    (11) GV -> TD V I VA BLOCK_CODE .
+
+    $end            reduce using rule 11 (GV -> TD V I VA BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 11 (GV -> TD V I VA BLOCK_CODE .)
+    RETURN          reduce using rule 11 (GV -> TD V I VA BLOCK_CODE .)
+
+
+state 64
+
+    (39) GF -> TD V ME PR MA . MY C RT MN BLOCK_CODE
+    (41) GF -> TD V ME PR MA . MY RT MN BLOCK_CODE
+    (62) MY -> . OPEN_BODY
+
+    OPEN_BODY       shift and go to state 47
+
+    MY                             shift and go to state 84
+
+state 65
+
+    (43) GF -> TD V ME MA MY . C RT MN BLOCK_CODE
+    (45) GF -> TD V ME MA MY . RT MN BLOCK_CODE
+    (7) C -> . GV
+    (8) C -> . GC
+    (9) C -> . GCF
+    (10) C -> . EMPTY
+    (51) RT -> . RETURN V
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (55) F -> . FOR
+
+  ! shift/reduce conflict for RETURN resolved as shift
+    RETURN          shift and go to state 87
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    FOR             shift and go to state 18
+
+  ! RETURN          [ reduce using rule 64 (EMPTY -> .) ]
+
+    TD                             shift and go to state 74
+    C                              shift and go to state 85
+    RT                             shift and go to state 86
+    GV                             shift and go to state 69
+    GC                             shift and go to state 70
+    GCF                            shift and go to state 71
+    EMPTY                          shift and go to state 72
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 66
+
+    (40) GF -> V ME PR MA MY . C MN BLOCK_CODE
+    (42) GF -> V ME PR MA MY . MN BLOCK_CODE
+    (7) C -> . GV
+    (8) C -> . GC
+    (9) C -> . GCF
+    (10) C -> . EMPTY
+    (63) MN -> . LESS_OR_EQUAL
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (55) F -> . FOR
+
+  ! shift/reduce conflict for LESS_OR_EQUAL resolved as shift
+    LESS_OR_EQUAL   shift and go to state 73
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    FOR             shift and go to state 18
+
+  ! LESS_OR_EQUAL   [ reduce using rule 64 (EMPTY -> .) ]
+
+    C                              shift and go to state 88
+    MN                             shift and go to state 89
+    GV                             shift and go to state 69
+    GC                             shift and go to state 70
+    GCF                            shift and go to state 71
+    EMPTY                          shift and go to state 72
+    TD                             shift and go to state 74
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 67
+
+    (44) GF -> V ME MA MY C . MN BLOCK_CODE
+    (63) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 73
+
+    MN                             shift and go to state 90
+
+state 68
+
+    (46) GF -> V ME MA MY MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 91
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 69
+
+    (7) C -> GV .
+
+    LESS_OR_EQUAL   reduce using rule 7 (C -> GV .)
+    RETURN          reduce using rule 7 (C -> GV .)
+
+
+state 70
+
+    (8) C -> GC .
+
+    LESS_OR_EQUAL   reduce using rule 8 (C -> GC .)
+    RETURN          reduce using rule 8 (C -> GC .)
+
+
+state 71
+
+    (9) C -> GCF .
+
+    LESS_OR_EQUAL   reduce using rule 9 (C -> GCF .)
+    RETURN          reduce using rule 9 (C -> GCF .)
+
+
+state 72
+
+    (10) C -> EMPTY .
+    (13) GV -> EMPTY .
+    (27) GC -> EMPTY .
+    (54) GCF -> EMPTY .
+
+  ! reduce/reduce conflict for LESS_OR_EQUAL resolved using rule 10 (C -> EMPTY .)
+  ! reduce/reduce conflict for RETURN resolved using rule 10 (C -> EMPTY .)
+  ! reduce/reduce conflict for LESS_OR_EQUAL resolved using rule 10 (C -> EMPTY .)
+  ! reduce/reduce conflict for RETURN resolved using rule 10 (C -> EMPTY .)
+  ! reduce/reduce conflict for LESS_OR_EQUAL resolved using rule 10 (C -> EMPTY .)
+  ! reduce/reduce conflict for RETURN resolved using rule 10 (C -> EMPTY .)
+    LESS_OR_EQUAL   reduce using rule 10 (C -> EMPTY .)
+    RETURN          reduce using rule 10 (C -> EMPTY .)
+
+  ! LESS_OR_EQUAL   [ reduce using rule 13 (GV -> EMPTY .) ]
+  ! RETURN          [ reduce using rule 13 (GV -> EMPTY .) ]
+  ! LESS_OR_EQUAL   [ reduce using rule 27 (GC -> EMPTY .) ]
+  ! RETURN          [ reduce using rule 27 (GC -> EMPTY .) ]
+  ! LESS_OR_EQUAL   [ reduce using rule 54 (GCF -> EMPTY .) ]
+  ! RETURN          [ reduce using rule 54 (GCF -> EMPTY .) ]
+
+
+state 73
+
+    (63) MN -> LESS_OR_EQUAL .
+
+    INTEGER_TYPE    reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    BOOLEAN_TYPE    reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    DECIMAL_TYPE    reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    STRING_TYPE     reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    IF              reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    VARIABLE        reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    FOR             reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    $end            reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    LESS_OR_EQUAL   reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+    RETURN          reduce using rule 63 (MN -> LESS_OR_EQUAL .)
+
+
+state 74
+
+    (11) GV -> TD . V I VA BLOCK_CODE
+    (12) GV -> TD . V BLOCK_CODE
+    (18) V -> . VARIABLE
+
+    VARIABLE        shift and go to state 17
+
+    V                              shift and go to state 92
+
+state 75
+
+    (25) GC -> CN PA CD PC MY . C MN BLOCK_CODE
+    (26) GC -> CN PA CD PC MY . MN BLOCK_CODE
+    (7) C -> . GV
+    (8) C -> . GC
+    (9) C -> . GCF
+    (10) C -> . EMPTY
+    (63) MN -> . LESS_OR_EQUAL
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (55) F -> . FOR
+
+  ! shift/reduce conflict for LESS_OR_EQUAL resolved as shift
+    LESS_OR_EQUAL   shift and go to state 73
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    FOR             shift and go to state 18
+
+  ! LESS_OR_EQUAL   [ reduce using rule 64 (EMPTY -> .) ]
+
+    CN                             shift and go to state 10
+    C                              shift and go to state 93
+    MN                             shift and go to state 94
+    GV                             shift and go to state 69
+    GC                             shift and go to state 70
+    GCF                            shift and go to state 71
+    EMPTY                          shift and go to state 72
+    TD                             shift and go to state 74
+    F                              shift and go to state 11
+
+state 76
+
+    (29) CD -> V S V .
+
+    PARENTHESIS_CLOSE reduce using rule 29 (CD -> V S V .)
+
+
+state 77
+
+    (30) CD -> V S VA .
+
+    PARENTHESIS_CLOSE reduce using rule 30 (CD -> V S VA .)
+
+
+state 78
+
+    (32) CD -> VA S VA .
+
+    PARENTHESIS_CLOSE reduce using rule 32 (CD -> VA S VA .)
+
+
+state 79
+
+    (31) CD -> VA S V .
+
+    PARENTHESIS_CLOSE reduce using rule 31 (CD -> VA S V .)
+
+
+state 80
+
+    (21) VA -> NUMBER DOT NUMBER .
+
+    EQUAL           reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    GREATER_THAN    reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    LESS_THAN       reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    GREATER_OR_EQUAL reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    LESS_OR_EQUAL   reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    NOT_EQUAL       reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    INTEGER_TYPE    reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    BOOLEAN_TYPE    reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    DECIMAL_TYPE    reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    STRING_TYPE     reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    IF              reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    VARIABLE        reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    FOR             reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    $end            reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    RETURN          reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+    PARENTHESIS_CLOSE reduce using rule 21 (VA -> NUMBER DOT NUMBER .)
+
+
+state 81
+
+    (24) VA -> QUOTATION_MARKS V QUOTATION_MARKS .
+
+    EQUAL           reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    GREATER_THAN    reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    LESS_THAN       reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    GREATER_OR_EQUAL reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    LESS_OR_EQUAL   reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    NOT_EQUAL       reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    INTEGER_TYPE    reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    BOOLEAN_TYPE    reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    DECIMAL_TYPE    reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    STRING_TYPE     reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    IF              reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    VARIABLE        reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    FOR             reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    $end            reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    RETURN          reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+    PARENTHESIS_CLOSE reduce using rule 24 (VA -> QUOTATION_MARKS V QUOTATION_MARKS .)
+
+
+state 82
+
+    (52) GCF -> F PA CDF PC MY . C MN BLOCK_CODE
+    (53) GCF -> F PA CDF PC MY . MN BLOCK_CODE
+    (7) C -> . GV
+    (8) C -> . GC
+    (9) C -> . GCF
+    (10) C -> . EMPTY
+    (63) MN -> . LESS_OR_EQUAL
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (55) F -> . FOR
+
+  ! shift/reduce conflict for LESS_OR_EQUAL resolved as shift
+    LESS_OR_EQUAL   shift and go to state 73
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    FOR             shift and go to state 18
+
+  ! LESS_OR_EQUAL   [ reduce using rule 64 (EMPTY -> .) ]
+
+    F                              shift and go to state 11
+    C                              shift and go to state 95
+    MN                             shift and go to state 96
+    GV                             shift and go to state 69
+    GC                             shift and go to state 70
+    GCF                            shift and go to state 71
+    EMPTY                          shift and go to state 72
+    TD                             shift and go to state 74
+    CN                             shift and go to state 10
+
+state 83
+
+    (56) CDF -> NUMBER SE NUMBER . SE O
+    (57) SE -> . PIPE
+
+    PIPE            shift and go to state 62
+
+    SE                             shift and go to state 97
+
+state 84
+
+    (39) GF -> TD V ME PR MA MY . C RT MN BLOCK_CODE
+    (41) GF -> TD V ME PR MA MY . RT MN BLOCK_CODE
+    (7) C -> . GV
+    (8) C -> . GC
+    (9) C -> . GCF
+    (10) C -> . EMPTY
+    (51) RT -> . RETURN V
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (55) F -> . FOR
+
+  ! shift/reduce conflict for RETURN resolved as shift
+    RETURN          shift and go to state 87
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    FOR             shift and go to state 18
+
+  ! RETURN          [ reduce using rule 64 (EMPTY -> .) ]
+
+    TD                             shift and go to state 74
+    C                              shift and go to state 98
+    RT                             shift and go to state 99
+    GV                             shift and go to state 69
+    GC                             shift and go to state 70
+    GCF                            shift and go to state 71
+    EMPTY                          shift and go to state 72
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 85
+
+    (43) GF -> TD V ME MA MY C . RT MN BLOCK_CODE
+    (51) RT -> . RETURN V
+
+    RETURN          shift and go to state 87
+
+    RT                             shift and go to state 100
+
+state 86
+
+    (45) GF -> TD V ME MA MY RT . MN BLOCK_CODE
+    (63) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 73
+
+    MN                             shift and go to state 101
+
+state 87
+
+    (51) RT -> RETURN . V
+    (18) V -> . VARIABLE
+
+    VARIABLE        shift and go to state 17
+
+    V                              shift and go to state 102
+
+state 88
+
+    (40) GF -> V ME PR MA MY C . MN BLOCK_CODE
+    (63) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 73
+
+    MN                             shift and go to state 103
+
+state 89
+
+    (42) GF -> V ME PR MA MY MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 104
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 90
+
+    (44) GF -> V ME MA MY C MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 105
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 91
+
+    (46) GF -> V ME MA MY MN BLOCK_CODE .
+
+    $end            reduce using rule 46 (GF -> V ME MA MY MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 46 (GF -> V ME MA MY MN BLOCK_CODE .)
+    RETURN          reduce using rule 46 (GF -> V ME MA MY MN BLOCK_CODE .)
+
+
+state 92
+
+    (11) GV -> TD V . I VA BLOCK_CODE
+    (12) GV -> TD V . BLOCK_CODE
+    (19) I -> . ASSIGNMENT
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    ASSIGNMENT      shift and go to state 28
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    I                              shift and go to state 25
+    BLOCK_CODE                     shift and go to state 26
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 93
+
+    (25) GC -> CN PA CD PC MY C . MN BLOCK_CODE
+    (63) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 73
+
+    MN                             shift and go to state 106
+
+state 94
+
+    (26) GC -> CN PA CD PC MY MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    CN                             shift and go to state 10
+    BLOCK_CODE                     shift and go to state 107
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    F                              shift and go to state 11
+
+state 95
+
+    (52) GCF -> F PA CDF PC MY C . MN BLOCK_CODE
+    (63) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 73
+
+    MN                             shift and go to state 108
+
+state 96
+
+    (53) GCF -> F PA CDF PC MY MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    F                              shift and go to state 11
+    BLOCK_CODE                     shift and go to state 109
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    CN                             shift and go to state 10
+
+state 97
+
+    (56) CDF -> NUMBER SE NUMBER SE . O
+    (58) O -> . SUBTRACTION
+    (59) O -> . ADDITION
+
+    SUBTRACTION     shift and go to state 111
+    ADDITION        shift and go to state 112
+
+    O                              shift and go to state 110
+
+state 98
+
+    (39) GF -> TD V ME PR MA MY C . RT MN BLOCK_CODE
+    (51) RT -> . RETURN V
+
+    RETURN          shift and go to state 87
+
+    RT                             shift and go to state 113
+
+state 99
+
+    (41) GF -> TD V ME PR MA MY RT . MN BLOCK_CODE
+    (63) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 73
+
+    MN                             shift and go to state 114
+
+state 100
+
+    (43) GF -> TD V ME MA MY C RT . MN BLOCK_CODE
+    (63) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 73
+
+    MN                             shift and go to state 115
+
+state 101
+
+    (45) GF -> TD V ME MA MY RT MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 116
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 102
+
+    (51) RT -> RETURN V .
+
+    LESS_OR_EQUAL   reduce using rule 51 (RT -> RETURN V .)
+
+
+state 103
+
+    (40) GF -> V ME PR MA MY C MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 117
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 104
+
+    (42) GF -> V ME PR MA MY MN BLOCK_CODE .
+
+    $end            reduce using rule 42 (GF -> V ME PR MA MY MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 42 (GF -> V ME PR MA MY MN BLOCK_CODE .)
+    RETURN          reduce using rule 42 (GF -> V ME PR MA MY MN BLOCK_CODE .)
+
+
+state 105
+
+    (44) GF -> V ME MA MY C MN BLOCK_CODE .
+
+    $end            reduce using rule 44 (GF -> V ME MA MY C MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 44 (GF -> V ME MA MY C MN BLOCK_CODE .)
+    RETURN          reduce using rule 44 (GF -> V ME MA MY C MN BLOCK_CODE .)
+
+
+state 106
+
+    (25) GC -> CN PA CD PC MY C MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    CN                             shift and go to state 10
+    BLOCK_CODE                     shift and go to state 118
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    F                              shift and go to state 11
+
+state 107
+
+    (26) GC -> CN PA CD PC MY MN BLOCK_CODE .
+
+    $end            reduce using rule 26 (GC -> CN PA CD PC MY MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 26 (GC -> CN PA CD PC MY MN BLOCK_CODE .)
+    RETURN          reduce using rule 26 (GC -> CN PA CD PC MY MN BLOCK_CODE .)
+
+
+state 108
+
+    (52) GCF -> F PA CDF PC MY C MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    F                              shift and go to state 11
+    BLOCK_CODE                     shift and go to state 119
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    CN                             shift and go to state 10
+
+state 109
+
+    (53) GCF -> F PA CDF PC MY MN BLOCK_CODE .
+
+    $end            reduce using rule 53 (GCF -> F PA CDF PC MY MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 53 (GCF -> F PA CDF PC MY MN BLOCK_CODE .)
+    RETURN          reduce using rule 53 (GCF -> F PA CDF PC MY MN BLOCK_CODE .)
+
+
+state 110
+
+    (56) CDF -> NUMBER SE NUMBER SE O .
+
+    PARENTHESIS_CLOSE reduce using rule 56 (CDF -> NUMBER SE NUMBER SE O .)
+
+
+state 111
+
+    (58) O -> SUBTRACTION .
+
+    PARENTHESIS_CLOSE reduce using rule 58 (O -> SUBTRACTION .)
+
+
+state 112
+
+    (59) O -> ADDITION .
+
+    PARENTHESIS_CLOSE reduce using rule 59 (O -> ADDITION .)
+
+
+state 113
+
+    (39) GF -> TD V ME PR MA MY C RT . MN BLOCK_CODE
+    (63) MN -> . LESS_OR_EQUAL
+
+    LESS_OR_EQUAL   shift and go to state 73
+
+    MN                             shift and go to state 120
+
+state 114
+
+    (41) GF -> TD V ME PR MA MY RT MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 121
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 115
+
+    (43) GF -> TD V ME MA MY C RT MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 122
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 116
+
+    (45) GF -> TD V ME MA MY RT MN BLOCK_CODE .
+
+    $end            reduce using rule 45 (GF -> TD V ME MA MY RT MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 45 (GF -> TD V ME MA MY RT MN BLOCK_CODE .)
+    RETURN          reduce using rule 45 (GF -> TD V ME MA MY RT MN BLOCK_CODE .)
+
+
+state 117
+
+    (40) GF -> V ME PR MA MY C MN BLOCK_CODE .
+
+    $end            reduce using rule 40 (GF -> V ME PR MA MY C MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 40 (GF -> V ME PR MA MY C MN BLOCK_CODE .)
+    RETURN          reduce using rule 40 (GF -> V ME PR MA MY C MN BLOCK_CODE .)
+
+
+state 118
+
+    (25) GC -> CN PA CD PC MY C MN BLOCK_CODE .
+
+    $end            reduce using rule 25 (GC -> CN PA CD PC MY C MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 25 (GC -> CN PA CD PC MY C MN BLOCK_CODE .)
+    RETURN          reduce using rule 25 (GC -> CN PA CD PC MY C MN BLOCK_CODE .)
+
+
+state 119
+
+    (52) GCF -> F PA CDF PC MY C MN BLOCK_CODE .
+
+    $end            reduce using rule 52 (GCF -> F PA CDF PC MY C MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 52 (GCF -> F PA CDF PC MY C MN BLOCK_CODE .)
+    RETURN          reduce using rule 52 (GCF -> F PA CDF PC MY C MN BLOCK_CODE .)
+
+
+state 120
+
+    (39) GF -> TD V ME PR MA MY C RT MN . BLOCK_CODE
+    (2) BLOCK_CODE -> . GV
+    (3) BLOCK_CODE -> . GC
+    (4) BLOCK_CODE -> . GF
+    (5) BLOCK_CODE -> . GCF
+    (6) BLOCK_CODE -> . EMPTY
+    (11) GV -> . TD V I VA BLOCK_CODE
+    (12) GV -> . TD V BLOCK_CODE
+    (13) GV -> . EMPTY
+    (25) GC -> . CN PA CD PC MY C MN BLOCK_CODE
+    (26) GC -> . CN PA CD PC MY MN BLOCK_CODE
+    (27) GC -> . EMPTY
+    (39) GF -> . TD V ME PR MA MY C RT MN BLOCK_CODE
+    (40) GF -> . V ME PR MA MY C MN BLOCK_CODE
+    (41) GF -> . TD V ME PR MA MY RT MN BLOCK_CODE
+    (42) GF -> . V ME PR MA MY MN BLOCK_CODE
+    (43) GF -> . TD V ME MA MY C RT MN BLOCK_CODE
+    (44) GF -> . V ME MA MY C MN BLOCK_CODE
+    (45) GF -> . TD V ME MA MY RT MN BLOCK_CODE
+    (46) GF -> . V ME MA MY MN BLOCK_CODE
+    (47) GF -> . EMPTY
+    (52) GCF -> . F PA CDF PC MY C MN BLOCK_CODE
+    (53) GCF -> . F PA CDF PC MY MN BLOCK_CODE
+    (54) GCF -> . EMPTY
+    (64) EMPTY -> .
+    (14) TD -> . INTEGER_TYPE
+    (15) TD -> . BOOLEAN_TYPE
+    (16) TD -> . DECIMAL_TYPE
+    (17) TD -> . STRING_TYPE
+    (28) CN -> . IF
+    (18) V -> . VARIABLE
+    (55) F -> . FOR
+
+    $end            reduce using rule 64 (EMPTY -> .)
+    LESS_OR_EQUAL   reduce using rule 64 (EMPTY -> .)
+    RETURN          reduce using rule 64 (EMPTY -> .)
+    INTEGER_TYPE    shift and go to state 12
+    BOOLEAN_TYPE    shift and go to state 13
+    DECIMAL_TYPE    shift and go to state 14
+    STRING_TYPE     shift and go to state 15
+    IF              shift and go to state 16
+    VARIABLE        shift and go to state 17
+    FOR             shift and go to state 18
+
+    TD                             shift and go to state 8
+    V                              shift and go to state 9
+    BLOCK_CODE                     shift and go to state 123
+    GV                             shift and go to state 3
+    GC                             shift and go to state 4
+    GF                             shift and go to state 5
+    GCF                            shift and go to state 6
+    EMPTY                          shift and go to state 7
+    CN                             shift and go to state 10
+    F                              shift and go to state 11
+
+state 121
+
+    (41) GF -> TD V ME PR MA MY RT MN BLOCK_CODE .
+
+    $end            reduce using rule 41 (GF -> TD V ME PR MA MY RT MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 41 (GF -> TD V ME PR MA MY RT MN BLOCK_CODE .)
+    RETURN          reduce using rule 41 (GF -> TD V ME PR MA MY RT MN BLOCK_CODE .)
+
+
+state 122
+
+    (43) GF -> TD V ME MA MY C RT MN BLOCK_CODE .
+
+    $end            reduce using rule 43 (GF -> TD V ME MA MY C RT MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 43 (GF -> TD V ME MA MY C RT MN BLOCK_CODE .)
+    RETURN          reduce using rule 43 (GF -> TD V ME MA MY C RT MN BLOCK_CODE .)
+
+
+state 123
+
+    (39) GF -> TD V ME PR MA MY C RT MN BLOCK_CODE .
+
+    $end            reduce using rule 39 (GF -> TD V ME PR MA MY C RT MN BLOCK_CODE .)
+    LESS_OR_EQUAL   reduce using rule 39 (GF -> TD V ME PR MA MY C RT MN BLOCK_CODE .)
+    RETURN          reduce using rule 39 (GF -> TD V ME PR MA MY C RT MN BLOCK_CODE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for LESS_OR_EQUAL in state 46 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 65 resolved as shift
+WARNING: shift/reduce conflict for LESS_OR_EQUAL in state 66 resolved as shift
+WARNING: shift/reduce conflict for LESS_OR_EQUAL in state 75 resolved as shift
+WARNING: shift/reduce conflict for LESS_OR_EQUAL in state 82 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 84 resolved as shift
+WARNING: reduce/reduce conflict in state 7 resolved using rule (BLOCK_CODE -> EMPTY)
+WARNING: rejected rule (GV -> EMPTY) in state 7
+WARNING: reduce/reduce conflict in state 7 resolved using rule (BLOCK_CODE -> EMPTY)
+WARNING: rejected rule (GC -> EMPTY) in state 7
+WARNING: reduce/reduce conflict in state 7 resolved using rule (BLOCK_CODE -> EMPTY)
+WARNING: rejected rule (GF -> EMPTY) in state 7
+WARNING: reduce/reduce conflict in state 7 resolved using rule (BLOCK_CODE -> EMPTY)
+WARNING: rejected rule (GCF -> EMPTY) in state 7
+WARNING: reduce/reduce conflict in state 72 resolved using rule (C -> EMPTY)
+WARNING: rejected rule (GV -> EMPTY) in state 72
+WARNING: reduce/reduce conflict in state 72 resolved using rule (C -> EMPTY)
+WARNING: rejected rule (GC -> EMPTY) in state 72
+WARNING: reduce/reduce conflict in state 72 resolved using rule (C -> EMPTY)
+WARNING: rejected rule (GCF -> EMPTY) in state 72
+WARNING: Rule (GV -> EMPTY) is never reduced
+WARNING: Rule (GC -> EMPTY) is never reduced
+WARNING: Rule (GF -> EMPTY) is never reduced
+WARNING: Rule (GCF -> EMPTY) is never reduced

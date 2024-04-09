@@ -9,6 +9,8 @@ variables_err = []
 conditional_result = []
 conditional_err = []
 loop_result = []
+functions = {}
+function_err = []
 
 # --- Tokenizer
 
@@ -367,6 +369,28 @@ def p_S(p):
     p[0] = p[1]
 
 
+def valid_function_returned_value(function_type, variable):
+
+    variable_found = validate_variables_existence(variable)
+
+    if variable_found:
+        if variable_found[0] == function_type:
+            return variable_found
+        else:
+            function_err.append(f'Tipo de dato variable "{variable}" no valido en retorno')
+
+    return None
+
+
+def validate_variables_existence(variable):
+    for key, value in variables.items():
+        if key[1] == variable:
+            return key
+
+    function_err.append(f"Variable '{variable}' no declarada")
+    return None
+
+
 # Grammar of function declaration
 def p_GF(p):
     '''
@@ -382,14 +406,65 @@ def p_GF(p):
     '''
     if len(p) == 10:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9])
-    elif len(p) == 12:
-        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11])
+
+        if p[4] != ">":
+            parameters = validate_variables_existence(p[4])
+            existence_variable = valid_function_returned_value(p[1], p[7][1])
+
+            if parameters and existence_variable:
+                functions[p[2]] = (p[1], parameters, existence_variable)
+
+            print("Funciones (10)(1) -> ", functions)
+        else:
+            existence_variable = valid_function_returned_value(p[1], p[7][1])
+
+            functions[p[2]] = (p[1], None, existence_variable)
+            print("Funciones (10)(2) -> ", functions)
     elif len(p) == 9:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8])
+        if p[1] in reserved_words.keys():
+            if p[6][0] == "rtn":
+                existence_variable = valid_function_returned_value(p[1], p[6][1])
+
+                if existence_variable:
+                    functions[p[2]] = (p[1], None, existence_variable)
+
+            else:
+                existence_variable = valid_function_returned_value(p[1], p[7][1])
+
+                if existence_variable:
+                    functions[p[2]] = (p[1], None, p[6][1])
+            print("Funciones (9)(1) -> ", functions)
+        else:
+            parameters = validate_variables_existence(p[3])
+
+            if parameters:
+                functions[p[1]] = (None, parameters, None)
+            print("Funciones (9)(2) -> ", functions)
     elif len(p) == 11:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10])
+        parameters = validate_variables_existence(p[4])
+        existence_variable = valid_function_returned_value(p[1], p[8][1])
+
+        if parameters and existence_variable:
+            functions[p[2]] = (p[1], parameters, existence_variable)
+
+        print("Funciones (11) -> ", functions)
     elif len(p) == 8:
         p[0] = (p[1], p[2], p[3], p[4], p[5], p[6], p[7])
+
+        if p[4] != "=>":
+            parameters = validate_variables_existence(p[3])
+            functions[p[1]] = (None, parameters, None)
+            print("Funciones (8)(1) -> ", functions)
+        else:
+            functions[p[1]] = (None, None, None)
+            print("Funciones (8)(2) -> ", functions)
+    elif len(p) == 7:
+        p[0] = (p[1], p[2], p[3], p[4], p[5], p[6])
+
+        functions[p[1]] = (None, None, None)
+        print("Funciones (7) -> ", functions)
     else:
         pass
 
@@ -535,8 +610,10 @@ parser = yacc()
 
 def analyze_syntax(tkn):
     global error_value
+    variables.clear()
     variables_err.clear()
     conditional_err.clear()
+    function_err.clear()
     errors.clear()
     input_entry = ""
     entry = []
@@ -589,6 +666,7 @@ def analyze_syntax(tkn):
             error_value = None, None
             add_errors_semantics.extend(variables_err)
             add_errors_semantics.extend(conditional_err)
+            add_errors_semantics.extend(function_err)
             add_message_error.append((f'CADENA VALIDA \n', add_errors_semantics[:]))
         elif parse is tuple and len(errors) > 0:
             add_message_error.append((f'CADENA INVALIDA {errors[0][1]} \n', []))
@@ -602,7 +680,7 @@ def analyze_syntax(tkn):
     # add_errors_semantics = []
     #
     # validated_entry = parser.parse(input_entry)
-    # if type(validated_entry) is tuple and len(errors) == 0:
+    # if variable_type(validated_entry) is tuple and len(errors) == 0:
     #     error_value = None, None
     #     # print("Variables valor final -> ", variables)
     #     # [print("Condicionales valor final -> ", c) for c in conditional_result]
