@@ -1,8 +1,9 @@
 from pathlib import Path
-from operations.syntactic_analyzer import analyze_syntax
+from operations.syntactic_analizer.syntactic_analyzer import analyze_syntax
 from operations.lexical_analyzer.lexer import Lexer
+from operations.semantic_analyzer.semantic import analyze_semantic, reset_app
 
-from tkinter import Tk, Canvas, Text, Entry, Button, PhotoImage, END, NORMAL, DISABLED
+from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, NORMAL, DISABLED
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"assets/main_frame")
@@ -56,23 +57,11 @@ def insert_syntactic_result_text():
         t, lexeme = token
         format_token = f'TOKEN: {t} - LEXEMA: {lexeme}'
     result_syntactic = analyze_syntax(result)
-    message_syntactic = ""
-    for (message, _) in result_syntactic:
-        if message.startswith("CADENA INVALIDA"):
-            message_syntactic = message
-            break
-        else:
-            message_syntactic = message
-    list_unique_error = []
-    for i, (_, rs) in enumerate(result_syntactic):
-        if (len(result_syntactic) - 1) == i:
-            for errors in rs:
-                err = errors + "\n"
-                if err not in list_unique_error:
-                    list_unique_error.append(err)
-    result_show.insert(0, message_syntactic)
+    result_semantic = analyze_semantic(result_syntactic[1])
+    result_show.insert(0, result_syntactic[0])
+    reset_app()
     entry_2.insert(END, "\n".join(map(str, result_show)))
-    entry_3.insert(END, "\n".join(map(str, list_unique_error)))
+    entry_3.insert(END, result_semantic)
     entry_2.config(state=DISABLED)
     entry_3.config(state=DISABLED)
 
