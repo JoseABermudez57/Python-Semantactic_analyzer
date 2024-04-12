@@ -16,6 +16,7 @@ reserved_words = {
     'if': 'IF',
     'for': 'FOR',
     'rtn': 'RETURN',
+    'kunai': 'KUNAI',
 }
 
 # All list Tokens
@@ -103,6 +104,7 @@ def p_BLOCK_CODE(p):
             | GC
             | GF
             | GCF
+            | PRINT
             | EMPTY
     '''
     if len(p) == 2:
@@ -117,6 +119,7 @@ def p_C(p):
     C : GV
         | GC
         | GCF
+        | PRINT
         | EMPTY
     '''
     if len(p) == 2:
@@ -384,6 +387,20 @@ def p_MN(p):
     MN : LESS_OR_EQUAL
     '''
     p[0] = p[1]
+
+
+# kunai
+def p_PRINT(p):
+    '''
+    PRINT : KUNAI MY V MN BLOCK_CODE
+          | KUNAI MY VA MN BLOCK_CODE
+          | KUNAI MY CD MN BLOCK_CODE
+          | EMPTY
+    '''
+    if len(p) == 6:
+        p[0] = ("print", p[1], str(p[3]), p[5])
+    else:
+        pass
 
 
 def p_empty(p):

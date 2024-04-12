@@ -6,6 +6,7 @@ loops = {}
 loop_err = []
 conditionals = {}
 conditional_err = []
+result = []
 
 
 def validate_condition(p1, p2, p3):
@@ -170,17 +171,17 @@ def grammar_loop(parse, i):
     operator = for_conditional[2]
     if start < end:
         if operator == '+':
-            for _ in range(start, end + 1):
+            for _ in range(start, end):
                 if parse[i + 2] is not None:
                     analyze_semantic(parse[i + 2])
         else:
-            loop_err.append(f"El inicio no puede ir en decremento")
+            loop_err.append("El inicio no puede ir en decremento")
     else:
         if operator == '-':
-            for _ in reversed(range(end, start + 1)):
+            for _ in range(end, start):
                 analyze_semantic(parse[i + 2])
         else:
-            loop_err.append(f"El inicio no puede ir en aumento")
+            loop_err.append("El inicio no puede ir en aumento")
 
 
 def valid_function_returned_value(function_type, variable):
@@ -281,17 +282,18 @@ def grammar_function(parse, i):
                     function_err.append(f"Parametro en {name} no declarado")
 
 
+def grammar_print(parse, i):
+    variable_existence = validate_variables_existence(parse[i + 2])
+    if variable_existence:
+        result.append(str(variable_existence[1]))
+    else:
+        result.append(str(parse[i + 2]))
+
+
 all_errors = []
 
 
 def analyze_semantic(parse):
-    variables.clear()
-    functions.clear()
-    function_err.clear()
-    loops.clear()
-    loop_err.clear()
-    conditionals.clear()
-    conditional_err.clear()
     counter = 0
 
     for i, code in enumerate(parse):
@@ -305,6 +307,8 @@ def analyze_semantic(parse):
                 grammar_loop(parse, i)
             elif code == "gf":
                 grammar_function(parse, i)
+            elif code == "print":
+                grammar_print(parse, i)
             elif isinstance(code, tuple):
                 analyze_semantic(code)
         else:
@@ -315,10 +319,19 @@ def analyze_semantic(parse):
     all_errors.extend(function_err)
     all_errors.extend(loop_err)
 
-    print("Errores:")
-    print(variables_err, "\n")
-
     if all_errors:
-        return all_errors[0]
+        cleanup()
+        return all_errors[0], False
     else:
-        return None
+        cleanup()
+        return result, True
+
+
+def cleanup():
+    variables.clear()
+    functions.clear()
+    function_err.clear()
+    loops.clear()
+    loop_err.clear()
+    conditionals.clear()
+    conditional_err.clear()

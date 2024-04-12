@@ -1,7 +1,7 @@
 from pathlib import Path
 from operations.syntactic_analizer.syntactic_analyzer import analyze_syntax
 from operations.lexical_analyzer.lexer import Lexer
-from operations.semantic_analyzer.semantic import analyze_semantic, reset_app
+from operations.semantic_analyzer.semantic import analyze_semantic
 
 from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, NORMAL, DISABLED
 
@@ -59,9 +59,11 @@ def insert_syntactic_result_text():
     result_syntactic = analyze_syntax(result)
     result_semantic = analyze_semantic(result_syntactic[1])
     result_show.insert(0, result_syntactic[0])
-    reset_app()
     entry_2.insert(END, "\n".join(map(str, result_show)))
-    entry_3.insert(END, result_semantic)
+    if result_show[1]:
+        entry_3.insert(END, "\n".join(result_semantic[0]))
+    else:
+        entry_3.insert(END, result_semantic[0])
     entry_2.config(state=DISABLED)
     entry_3.config(state=DISABLED)
 

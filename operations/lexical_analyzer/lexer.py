@@ -29,7 +29,8 @@ class Lexer:
             'DOT': ".",
             'ADDITION': '+',
             'SUBTRACTION': '-',
-            'RETURN': 'rtn'
+            'RETURN': 'rtn',
+            'KUNAI': 'kunai',
         }
 
         self.reserved_words = dict(sorted(self.reserved_words.items(), key=lambda x: len(x[1]), reverse=True))
