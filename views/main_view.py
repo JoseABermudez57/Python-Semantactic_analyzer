@@ -2,12 +2,12 @@ from pathlib import Path
 from operations.syntactic_analizer.syntactic_analyzer import analyze_syntax
 from operations.lexical_analyzer.lexer import Lexer
 from operations.semantic_analyzer.semantic import analyze_semantic
+from operations.semantic_analyzer.semantic import cleanup
 
 from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, NORMAL, DISABLED
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"assets/main_frame")
-
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -60,7 +60,7 @@ def insert_syntactic_result_text():
     result_semantic = analyze_semantic(result_syntactic[1])
     result_show.insert(0, result_syntactic[0])
     entry_2.insert(END, "\n".join(map(str, result_show)))
-    if result_show[1]:
+    if result_semantic[1]:
         entry_3.insert(END, "\n".join(result_semantic[0]))
     else:
         entry_3.insert(END, result_semantic[0])
@@ -77,11 +77,11 @@ def insert_code_result_text():
 def clean_text_areas():
     entry_2.config(state=NORMAL)
     entry_3.config(state=NORMAL)
-    entry_1.delete(1.0, END)
     entry_2.delete(1.0, END)
     entry_3.delete(1.0, END)
     entry_2.config(state=DISABLED)
     entry_3.config(state=DISABLED)
+    cleanup()
 
 
 button_image_1 = PhotoImage(

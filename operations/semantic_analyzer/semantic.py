@@ -295,7 +295,6 @@ all_errors = []
 
 def analyze_semantic(parse):
     counter = 0
-
     for i, code in enumerate(parse):
         if counter == 0:
             if code == "gv":
@@ -320,18 +319,17 @@ def analyze_semantic(parse):
     all_errors.extend(loop_err)
 
     if all_errors:
-        cleanup()
         return all_errors[0], False
     else:
-        cleanup()
         return result, True
 
 
 def cleanup():
-    variables.clear()
     functions.clear()
     function_err.clear()
     loops.clear()
     loop_err.clear()
     conditionals.clear()
     conditional_err.clear()
+    variables.clear()
+    result.clear()
